@@ -1,0 +1,7 @@
+{
+  "name": "Neumáticos JP - Premium Tire Experience Catalogo",
+  "description": "Una aplicación web premium para la venta y gestión de neumáticos de alta gama, con catálogo interactivo, panel de administración y diseño oscuro elegante.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
