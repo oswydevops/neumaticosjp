@@ -2,6 +2,7 @@
 import React from 'react';
 import { Page, Tire } from '../types';
 
+
 interface HomeProps {
   onNavigate: (page: Page) => void;
   onProductClick: (tire: Tire) => void;
@@ -11,27 +12,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-20">
+      <section className="relative min-h-[100vh] flex flex-col items-center justify-center pt-20">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/public/hero.jpg" 
+            src="/public/hero.png" 
             alt="Luxury car in dark garage"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-[1200px] space-y-8">
+        <div className="relative z-10 text-center px-4 max-w-[1200px] space-y-8 md:w-2xl">
           <h1 className="text-white font-serif text-6xl md:text-8xl font-black leading-tight tracking-tight drop-shadow-2xl">
             Más que neumáticos, potencia y seguridad para tu operación
           </h1>
-          <p className="text-white/80 text-xl md:text-2xl font-light leading-relaxed  mx-auto">
-            Somos tu aliado de confianza para la seguridad de tu flota y de tu auto. Especializados en neumáticos para camiones, trailers y vehículos particulares, ofrecemos productos de calidad, asesoramiento técnico y un servicio pensado para mantenerte en camino.
+          <p className="text-white/80 text-xl md:text-2xl font-light leading-relaxed  mx-auto italic">
+            Somos tu aliado de confianza para la seguridad de tu flota y de tu camión. Especializados en neumáticos para camiones y trailers, ofrecemos productos de calidad y asesoramiento técnico.
           </p>
           <div className="pt-10 flex flex-wrap justify-center gap-6">
             <button 
               onClick={() => onNavigate('catalog')}
-              className="inline-flex items-center justify-center min-w-[220px] h-16 bg-primary text-[#0A0A0A] rounded-lg text-lg font-bold tracking-tight hover:scale-105 hover:brightness-110 transition-all shadow-[0_20px_40px_rgba(193,165,123,0.3)]"
+              className="inline-flex items-center justify-center min-w-[220px] h-16 bg-primary text-[#0A0A0A] rounded-lg text-lg font-bold tracking-tight hover:scale-105 hover:brightness-110 transition-all"
             >
               Ver Catálogo
             </button>
@@ -49,9 +50,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section className="px-6 lg:px-40 py-32 bg-background-dark">
         <div className="max-w-[1440px] mx-auto space-y-20">
           <div className="flex flex-col gap-6 text-center md:text-left">
-            <h2 className="text-primary font-serif text-5xl font-bold tracking-tight">Nuestros Pilares</h2>
+            <h2 className="text-white font-serif text-5xl font-bold tracking-tight">Nuestros Pilares</h2>
             <div className="h-1.5 w-24 bg-primary/40 rounded-full mx-auto md:mx-0"></div>
-            <p className="text-white/60 text-xl font-light max-w-2xl">Calidad superior y atención especializada para tu vehículo.</p>
+            <p className="text-white/60 text-xl font-light italic max-w-2xl">Calidad superior y atención especializada para tu vehículo.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -98,12 +99,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <h2 className="text-white font-serif text-4xl md:text-6xl font-black max-auto leading-tight">
               ¿Buscas asesoramiento para la compra?
             </h2>
-            <p className="text-white/70 text-xl md:text-2xl max-w-2xl font-light">
+            <p className="text-white/70 text-xl md:text-2xl max-w-3xl font-light">
               Habla directamente con nuestro vendedor, especializado para ayudarte a encontrar la mejor opción para tu estilo de conducción.
             </p>
             <button 
               onClick={() => onNavigate('contact')}
-              className="flex min-w-[280px] cursor-pointer items-center justify-center rounded-xl h-16 px-10 bg-primary text-[#0A0A0A] text-xl font-bold hover:scale-105 hover:brightness-110 transition-all shadow-[0_15px_35px_rgba(193,165,123,0.4)]"
+              className="flex min-w-[230px] cursor-pointer items-center justify-center rounded-xl h-16 px-10 bg-primary text-[#0A0A0A] text-xl font-bold hover:scale-105 hover:brightness-110 transition-all animate-bounce"
             >
               Contactar Vendedor
             </button>

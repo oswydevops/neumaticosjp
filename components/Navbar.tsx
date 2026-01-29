@@ -24,12 +24,25 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
           className="flex items-center gap-3 cursor-pointer group"
           onClick={() => onNavigate('home')}
         >
-          <div className="text-primary size-8 transform group-hover:scale-110 transition-transform">
-            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path clipRule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fillRule="evenodd"></path>
-            </svg>
+          <div className="size-15 transform group-hover:scale-110 transition-transform flex items-center justify-center">
+            <img 
+              src="./public/icons/logoJP.svg" 
+              alt="Neumáticos JP Logo" 
+              className="w-[40px] h-[40px] object-contain"
+              onError={(e) => {
+                // Fallback en caso de que la imagen local no exista aún
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement!.innerHTML = `
+                  <div class="text-primary">
+                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path clipRule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fillRule="evenodd"></path>
+                    </svg>
+                  </div>
+                `;
+              }}
+            />
           </div>
-          <h2 className="text-white text-xl font-serif font-bold tracking-tight">Neumáticos JP</h2>
+          <h2 className="text-white text-3xl font-serif font-bold tracking-tight ml-3">JP TIRES</h2>
         </div>
 
         {/* Desktop Nav */}
@@ -38,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             <button
               key={item.value}
               onClick={() => onNavigate(item.value)}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`text-xl font-medium transition-colors hover:text-primary ${
                 currentPage === item.value ? 'text-primary' : 'text-white/70'
               }`}
             >
@@ -48,18 +61,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         </nav>
 
         <div className="flex items-center gap-4">
-          <button 
-            onClick={() => onNavigate('admin')}
-            className="hidden lg:flex items-center justify-center rounded-lg h-10 px-5 border border-white/10 text-white/50 text-sm hover:text-white hover:bg-white/5 transition-all"
-          >
-            Admin
-          </button>
-          <button 
-            onClick={() => onNavigate('contact')}
-            className="hidden sm:flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-[#0A0A0A] text-sm font-bold tracking-wide hover:brightness-110 transition-all"
-          >
-            Contactar
-          </button>
           
           {/* Mobile Menu Button */}
           <button 
@@ -90,15 +91,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               {item.label}
             </button>
           ))}
-          <button 
-             onClick={() => {
-               onNavigate('admin');
-               setIsMenuOpen(false);
-             }}
-             className="text-lg font-medium text-left text-white/40"
-          >
-            Panel de Control
-          </button>
         </div>
       )}
     </header>

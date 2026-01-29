@@ -148,7 +148,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
             className="flex items-center justify-center rounded-xl h-14 px-8 bg-primary text-black gap-3 text-lg font-bold shadow-xl shadow-primary/20 hover:brightness-110 transition-all active:scale-95"
           >
             <span className="material-symbols-outlined">add</span>
-            Nuevo Neumático
+            Añadir Neumático
           </button>
         </div>
 
@@ -344,7 +344,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
                           tire.status === 'inactive' ? 'text-green-500 hover:text-green-400' : 'text-amber-500 hover:text-amber-400'
                         }`}
                       >
-                        {tire.status === 'inactive' ? 'Publicar' : 'Borrador'}
+                        {tire.status === 'inactive' ? 'Habilitar' : 'Deshabilitar'}
                       </button>
                       <button 
                         onClick={() => openDeleteModal(tire)}

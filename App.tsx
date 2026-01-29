@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import ProductModal from './components/ProductModal';
 
+
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [tires, setTires] = useState<Tire[]>(INITIAL_TIRES);

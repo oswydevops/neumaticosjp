@@ -68,8 +68,8 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
       <div className="max-w-[1440px] mx-auto space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4">
-            <h1 className="text-6xl font-black font-serif text-white tracking-tight">Catálogo</h1>
-            <p className="text-pale-sky text-xl">Explora nuestra selección premium de neumáticos de alto rendimiento.</p>
+            <h1 className="text-6xl font-black font-serif text-white tracking-tight">Catálogo de Neumáticos</h1>
+            <p className="text-white/60 text-xl font-monrope italic">Explora nuestra selección premium de neumáticos de alto rendimiento.</p>
           </div>
           
           <button 
@@ -209,8 +209,8 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
           )}
 
           <div className="flex justify-between items-center px-2">
-            <p className="text-white/40 text-sm font-medium">
-              Mostrando <span className="text-primary font-black text-lg ml-1">{filteredTires.length}</span> neumáticos seleccionados
+            <p className="text-white/40 text-xl font-monrope">
+              Mostrando <span className="text-primary font-black text-xl ml-1">{filteredTires.length}</span> neumáticos seleccionados
             </p>
           </div>
 
