@@ -38,6 +38,39 @@
         ::-webkit-scrollbar-thumb { background:#DCE0E9; border-radius: 10px;  }
         ::-webkit-scrollbar-thumb:hover { background: #d4b98e; }
 
+        /* Ocultar flechas en inputs de número (Spinners) */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Animación de Gradiente de Texto */
+        @keyframes textShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-gradient-text {
+            background: linear-gradient(
+                to right,
+                #ffffff 20%,
+                #9a8873 40%,
+                #d3c8b4 60%,
+                #ffffff 80%
+            );
+            background-size: 200% auto;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 4s linear infinite;
+        }
+
         /* Scrollbar delgado para filtros */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }

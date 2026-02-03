@@ -57,8 +57,12 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        <div className="py-24 border-y border-white/5 space-y-20">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+        <div className="relative py-24 border-y border-white/5 space-y-20 overflow-hidden">
+        {/* Decorative background glows for blur effect */}
+          <div className="absolute top-1/2 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="absolute top-1/2 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+          <div className="relative z-10 text-center max-w-3xl mx-auto space-y-6">
             <h6 className="text-primary font-black tracking-[0.3em] uppercase text-sm">Especialización</h6>
             <h2 className="text-5xl font-serif text-white font-bold">Expertos en lo que hacemos</h2>
             <p className="text-white/50 text-xl font-light leading-relaxed italic">Ofrecemos un ecosistema y amplio catálogo diseñado para mantener la integridad y el confort de su camión.</p>
@@ -70,12 +74,12 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
               { icon: 'support_agent', title: 'Asesoría Técnica', desc: 'Consultores especializados que analizan su perfil de conducción antes de recomendar.' },
               { icon: 'verified', title: 'Garantía Oficial', desc: 'Soporte oficial del fabricante y garantía extendida en todo nuestro catálogo.' }
             ].map((s, idx) => (
-              <div key={idx} className="group p-10 rounded-2xl bg-surface-dark border border-white/5 hover:border-primary/50 transition-all text-center space-y-6">
+              <div key={idx} className="group p-10 rounded-[2.5rem] bg-surface-dark/40 backdrop-blur-xl border border-white/10 hover:bg-white/[0.08] transition-all duration-500 hover:-translate-y-2 text-center space-y-6 shadow-2xl">
                 <div className="w-20 h-20 mx-auto rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all">
                   <span className="material-symbols-outlined text-4xl">{s.icon}</span>
                 </div>
                 <h3 className="text-2xl font-bold font-serif text-white">{s.title}</h3>
-                <p className="text-white/40 text-lg font-light leading-relaxed">{s.desc}</p>
+                <p className="text-white/40 text-lg font-light leading-relaxed italic">{s.desc}</p>
               </div>
             ))}
           </div>

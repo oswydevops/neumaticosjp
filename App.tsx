@@ -14,8 +14,43 @@ import ProductModal from './components/ProductModal';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [tires, setTires] = useState<Tire[]>(INITIAL_TIRES);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
+
+  // MODIFICACIÓN: Lógica de inicialización del estado 'tires'
+  // 1. Intenta buscar datos previos en el localStorage del navegador.
+  // 2. Si no hay nada (primera vez), usa INITIAL_TIRES que ahora es un array vacío [].
+  const [tires, setTires] = useState<Tire[]>(() => {
+    try {
+      const saved = localStorage.getItem('jp_inventory_data');
+      return saved ? JSON.parse(saved) : INITIAL_TIRES;
+    } catch {
+      return INITIAL_TIRES;
+    }
+  });
+
+  // MODIFICACIÓN: Lógica de persistencia automática.
+  // Cada vez que el array 'tires' cambia (agregar, editar, eliminar), se guarda en el disco del navegador.
+  // Esto asegura que al cerrar y abrir el sitio, tus cambios sigan ahí.
+  useEffect(() => {
+    localStorage.setItem('jp_inventory_data', JSON.stringify(tires));
+  }, [tires]);
+
+
+  // Escuchar cambios en el hash para navegación manual (ej: /#admin)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as Page;
+      if (['home', 'catalog', 'about', 'contact', 'admin'].includes(hash)) {
+        setCurrentPage(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Verificar hash inicial
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   // Simple scroll to top on page change
   useEffect(() => {
@@ -48,7 +83,8 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
 
-      <Footer onNavigate={setCurrentPage} />
+      {/* Solo mostramos el footer si NO estamos en el panel de administración */}
+      {currentPage !== 'admin' && <Footer onNavigate={setCurrentPage} />}
 
       {selectedTire && (
         <ProductModal 

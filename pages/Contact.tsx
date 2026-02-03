@@ -18,7 +18,8 @@ const Contact: React.FC = () => {
     <div className="pt-28 pb-20 px-6 lg:px-40 animate-in fade-in duration-500">
       <div className="max-w-[1440px] mx-auto space-y-16">
         <div className="flex flex-col gap-4 text-center">
-          <h1 className="text-6xl font-black font-serif text-white tracking-tight">Contacto  [JP TIRES]</h1>
+          <h1 className="text-6xl font-black font-serif text-white tracking-tight">Contacto <span className="text-primary/80">[JP TIRES]</span>
+          </h1>
           <p className="text-white text-xl max-w-2xl mx-auto italic">Experiencia premium en retail de neumáticos. Estamos aquí para asesorarte con la mejor calidad.</p>
         </div>
 
@@ -27,7 +28,7 @@ const Contact: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <a 
                 href="tel:+14388266657" 
-                className="group p-8 rounded-2xl bg-surface-dark/50 border border-white/10 hover:border-primary/50 transition-all flex flex-col justify-between"
+                className="group p-8 rounded-2xl bg-surface-dark/35 border border-white/10 hover:border-primary/50 transition-all flex flex-col justify-between"
               >
                 <div className="flex items-center gap-4 text-primary mb-6">
                   <span className="material-symbols-outlined text-3xl">call</span>
@@ -36,8 +37,8 @@ const Contact: React.FC = () => {
                 <p className="text-white text-2xl font-bold group-hover:text-primary transition-colors">+1 438-826-6657</p>
               </a>
               <a 
-                href="mailto:ventas@neumaticosjp.com" 
-                className="group p-8 rounded-2xl bg-surface-dark/50 border border-white/10 hover:border-primary/50 transition-all flex flex-col justify-between"
+                href="mailto:Jean_plourde@hotmail.com" 
+                className="group p-8 rounded-2xl bg-surface-dark/35 border border-white/10 hover:border-primary/50 transition-all flex flex-col justify-between"
               >
                 <div className="flex items-center gap-4 text-primary mb-6">
                   <span className="material-symbols-outlined text-3xl">mail</span>

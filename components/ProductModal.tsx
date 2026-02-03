@@ -11,7 +11,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const whatsappUrl = `https://wa.me/541112345678?text=Hola,%20estoy%20interesado%20en%20el%20neumático%20${tire.brand}%20${tire.model}%20medida%20${tire.width}/${tire.profile}%20R${tire.diameter}.%20¿Tienen%20stock?`;
 
   const handleCloseRequest = () => {
     setIsClosing(true);
@@ -76,11 +75,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
               <span className="bg-white/5 border border-white/10 text-white/60 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
                 <span className="material-symbols-outlined text-xs">ac_unit</span> {tire.season}
               </span>
-              {tire.status === 'low-stock' && (
-                <span className="bg-amber-500 text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2 animate-pulse shadow-lg shadow-amber-500/20">
-                  <span className="material-symbols-outlined text-xs">warning</span> Stock Bajo
-                </span>
-              )}
             </div>
             <h1 className="text-5xl font-black font-serif text-white leading-tight tracking-tight">{tire.brand} <span className="text-primary">{tire.model}</span></h1>
             <p className="text-white/30 text-xs tracking-[0.4em] font-black uppercase">Código SKU: {tire.brand.substring(0,3).toUpperCase()}-{tire.width}-{tire.diameter}X</p>
@@ -105,12 +99,24 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
           <div className="mt-auto space-y-10">
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-1">
-                <span className="text-white/20 text-[10px] font-black uppercase tracking-[0.3em]">Precio por unidad</span>
-                <p className="text-5xl font-black text-white tracking-tighter">
+                <div className="flex items-center gap-3">
+                  <span className="text-white/20 text-[10px] font-black uppercase tracking-[0.3em]">Precio CAD</span>
+                  {/* CAMBIO: Lógica de Stock Bajo movida aquí al lado del label del precio */}
+                  {tire.status === 'low-stock' && (
+                    <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider italic animate-pulse">
+                      Stock Bajo
+                    </span>
+                  )}
+                  {tire.status === 'active' && (
+                    <span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider italic">
+                      En Stock
+                    </span>
+                  )}
+                </div>
+                <p className="text-5xl font-black text-white font-outfit tracking-tighter">
                   ${tire.price.toLocaleString('es-CL')}
                 </p>
               </div>
-              <span className="text-xs font-bold text-white/40 mb-1">IVA Incluido</span>
             </div>  
           </div>
         </div>
