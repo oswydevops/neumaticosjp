@@ -71,7 +71,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
       <div className="relative z-10 max-w-[1440px] mx-auto space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4">
-            <h1 className="text-6xl font-black font-serif text-white tracking-tight">Catálogo</h1>
+            <h1 className="text-6xl font-black font-serif text-white tracking-tight">Catálogo de neumáticos</h1>
             <p className="text-pale-sky text-xl italic">Explora nuestra selección premium de neumáticos de alto rendimiento.</p>
           </div>
           
@@ -96,7 +96,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 animate-in fade-in duration-300">
             {/* Capa de fondo oscura con desenfoque (Backdrop) */}
             <div 
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 bg-surface-dark/20 backdrop-blur-md"
               onClick={() => setIsSidebarOpen(false)}
             />
             

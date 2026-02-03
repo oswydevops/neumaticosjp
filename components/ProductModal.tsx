@@ -86,7 +86,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
               { label: 'Relación Perfil', value: `${tire.profile} %` },
               { label: 'Tipo Rodado', value: `R${tire.diameter}"` },
               { label: 'Construcción', value: `${tire.construction} Radial` },
-              { label: 'Carga Máxima', value: `${tire.loadIndex} Lbs` },
+              { label: 'Carga Máxima', value: `${tire.maxWeight} Lbs` },
               { label: 'Rango Velocidad', value: `${tire.speedRating} Max` },
             ].map((spec, i) => (
               <div key={i} className="space-y-2">

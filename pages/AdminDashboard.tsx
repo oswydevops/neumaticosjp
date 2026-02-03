@@ -268,7 +268,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
               <h1 className="text-5xl font-black text-white tracking-tight font-serif">Gestión de Inventario</h1>
               <span className="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase italic">Admin Mode</span>
             </div>
-            <p className="text-pale-sky text-lg italic">Panel de gestión en tiempo real de JP TIRES.</p>
+            <p className="text-pale-sky text-lg italic">Panel para la gestión de productos de Jean Plourde.</p>
           </div>
           <div className="flex items-center gap-4">
             <button 
@@ -284,7 +284,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
         </div>
 
         {isModalOpen && (
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-surface-dark/80 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="fixed top-[30px] inset-x-0 bottom-0 z-40 flex  items-center justify-center p-4 md:p-10 bg-surface-dark/20 backdrop-blur-md animate-in fade-in duration-300">
             <div className="bg-surface-dark w-full max-w-4xl rounded-[3rem] border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.6)] flex flex-col max-h-[85vh] overflow-hidden">
               <div className="p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                 <div className="flex items-center gap-5">
@@ -343,7 +343,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
                       <label className="text-[10px] font-bold uppercase text-white/40 pl-2 flex items-center gap-2">
                         <span className="material-symbols-outlined text-base">weight</span> Peso Máximo (Libras)
                       </label>
-                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-16 rounded-2xl px-6 text-2xl text-white font-black focus:border-primary font-outfit" placeholder="Ej: 2500" />
+                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-16 rounded-2xl px-6 text-2xl text-white font-black focus:border-primary font-outfit"/>
                     </div>
                   </div>
                 </div>
@@ -364,7 +364,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
                       <input type="number" name="diameter" value={formData.diameter} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-4 text-white font-bold" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">Vel.</label>
+                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">Velocidad Max.</label>
                       <select name="speedRating" value={formData.speedRating} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-2 text-white font-bold">
                         {SPEED_RATINGS.map(r => <option key={r} value={r}>{r}</option>)}
                       </select>
@@ -384,9 +384,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
         )}
 
         {isDeleteModalOpen && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="fixed top-[30px] inset-x-0 bottom-0 z-40 flex items-center justify-center p-4 bg-surface-dark/20 backdrop-blur-xl animate-in fade-in duration-300">
             <div className="bg-surface-dark w-full max-w-md rounded-[3rem] border border-white/10 p-10 text-center space-y-8">
-              <span className="material-symbols-outlined text-red-500 text-6xl">delete_forever</span>
+              <span className="material-symbols-outlined text-red-500 text-6xl animate-pulse">delete_forever</span>
               <h3 className="text-3xl font-black text-white italic font-serif">¿Eliminar producto?</h3>
               <p className="text-white/40 italic">Esta acción no se puede deshacer y el producto desaparecerá del catálogo.</p>
               <div className="flex gap-4">
@@ -423,11 +423,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
                     {cadFormatter.format(tire.price)}
                   </td>
                   <td className="px-10 py-8">
-                    <div className={`px-4 py-2 rounded-full text-xs font-black uppercase ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10' : 'text-white/40 bg-white/5'}`}>{tire.stock} UNID.</div>
+                    <div className={`px-4 py-2 rounded-full text-xs font-black uppercase ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10' : 'text-white/40 bg-white/5'}`}>{tire.stock} UNIDADES</div>
                   </td>
                   <td className="px-10 py-8 text-right flex items-center justify-end gap-6">
                     <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125"><span className="material-symbols-outlined text-2xl">edit</span></button>
-                    <button onClick={() => toggleStatus(tire.id)} className={`text-[9px] font-black px-4 py-2 rounded-lg border uppercase ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20' : 'text-amber-500 border-amber-500/20'}`}>{tire.status === 'inactive' ? 'Publicar' : 'Borrador'}</button>
+                    <button onClick={() => toggleStatus(tire.id)} className={`text-[9px] font-black px-4 py-2 rounded-lg border uppercase ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20' : 'text-amber-500 border-amber-500/20'}`}>{tire.status === 'inactive' ? 'Mostrar' : 'Ocultar'}</button>
                     <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all"><span className="material-symbols-outlined text-2xl">delete</span></button>
                   </td>
                 </tr>
