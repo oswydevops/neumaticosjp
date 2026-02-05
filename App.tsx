@@ -16,9 +16,8 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
 
-  // MODIFICACIÓN: Lógica de inicialización del estado 'tires'
-  // 1. Intenta buscar datos previos en el localStorage del navegador.
-  // 2. Si no hay nada (primera vez), usa INITIAL_TIRES que ahora es un array vacío [].
+  const [isAdminLoginView, setIsAdminLoginView] = useState(false);
+
   const [tires, setTires] = useState<Tire[]>(() => {
     try {
       const saved = localStorage.getItem('jp_inventory_data');
@@ -28,9 +27,7 @@ const App: React.FC = () => {
     }
   });
 
-  // MODIFICACIÓN: Lógica de persistencia automática.
-  // Cada vez que el array 'tires' cambia (agregar, editar, eliminar), se guarda en el disco del navegador.
-  // Esto asegura que al cerrar y abrir el sitio, tus cambios sigan ahí.
+
   useEffect(() => {
     localStorage.setItem('jp_inventory_data', JSON.stringify(tires));
   }, [tires]);
@@ -55,6 +52,10 @@ const App: React.FC = () => {
   // Simple scroll to top on page change
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Resetear el estado si navegamos fuera de admin para evitar bloqueos visuales
+    if (currentPage !== 'admin') {
+      setIsAdminLoginView(false);
+    }
   }, [currentPage]);
 
   const renderPage = () => {
@@ -68,7 +69,7 @@ const App: React.FC = () => {
       case 'contact':
         return <Contact />;
       case 'admin':
-        return <AdminDashboard tires={tires} setTires={setTires} />;
+        return <AdminDashboard tires={tires} setTires={setTires} setIsAdminLoginView={setIsAdminLoginView} />;
       default:
         return <Home onNavigate={setCurrentPage} onProductClick={setSelectedTire} />;
     }
@@ -77,7 +78,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+      {!isAdminLoginView && <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />}
       
       <main className="flex-grow">
         {renderPage()}

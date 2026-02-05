@@ -70,7 +70,7 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: 'tire_repair', title: 'Ventas', desc: 'Distribución oficial de marcas líderes mundiales como Michelin, Pirelli y Continental.' },
-              { icon: 'settings_suggest', title: 'Calidad', desc: 'Productos certificados que cumplen con los estándares más exigentes de seguridad y rendimiento.' },
+              { icon: 'settings_suggest', title: 'Calidad Premium', desc: 'Productos certificados que cumplen con los estándares más exigentes de seguridad y rendimiento.' },
               { icon: 'support_agent', title: 'Asesoría Técnica', desc: 'Consultores especializados que analizan su perfil de conducción antes de recomendar.' },
               { icon: 'verified', title: 'Garantía Oficial', desc: 'Soporte oficial del fabricante y garantía extendida en todo nuestro catálogo.' }
             ].map((s, idx) => (

@@ -58,20 +58,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     className="text-white/40 hover:text-white transition-colors flex items-center gap-3 group font-outfit"
                   >
                     <span className="material-symbols-outlined text-xl group-hover:text-primary">description</span>
-                    Guía
+                    Guía de Usuario
                   </button>
                 </li>
-                <li>
-                  <a 
-                    href="paypal.me/legendthebeatz" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-white/40 hover:text-white transition-colors flex items-center gap-3 group font-outfit"
-                  >
-                    <span className="material-symbols-outlined text-xl group-hover:text-primary">favorite</span>
-                    Contribuir
-                  </a>
-                </li>
+                
                 <li>
                   <a 
                     href="mailto:misredes9900@gmail.com?subject=Soporte Técnico Sistema"
@@ -115,7 +105,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 className="opacity-20 hover:opacity-100 hover:scale-110 transition-all duration-300 w-6 h-6 flex items-center justify-center"
                >
                   <img 
-                    src="./public/icons/facebook.svg" 
+                    src="/icons/facebook.svg" 
                     alt="Facebook" 
                     className="w-full h-full object-contain filter brightness-0 invert"
                     onError={(e) => {
@@ -131,7 +121,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 className="opacity-20 hover:opacity-100 hover:scale-110 transition-all duration-300 w-6 h-6 flex items-center justify-center"
                >
                   <img 
-                    src="./public/icons/instagram.svg" 
+                    src="/icons/instagram.svg" 
                     alt="Instagram" 
                     className="w-full h-full object-contain filter brightness-0 invert"
                     onError={(e) => {
@@ -147,7 +137,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 className="opacity-20 hover:opacity-100 hover:scale-110 transition-all duration-300 w-6 h-6 flex items-center justify-center"
                >
                   <img 
-                    src="./public/icons/tiktok.svg" 
+                    src="/icons/tiktok.svg" 
                     alt="TikTok" 
                     className="w-full h-full object-contain filter brightness-0 invert"
                     onError={(e) => {

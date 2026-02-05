@@ -15,7 +15,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section className="relative min-h-[100vh] flex flex-col items-center justify-center pt-20">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/public/hero.png" 
+            src="/hero.png" 
             alt="Luxury car in dark garage"
             className="w-full h-full object-cover"
           />
@@ -69,8 +69,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <span className="material-symbols-outlined text-4xl">star</span>
               </div>
               <div className="space-y-4">
-                <h3 className="text-white text-2xl font-bold">Calidad Premium</h3>
-                <p className="text-white/50 text-lg leading-relaxed italic">Solo las mejores marcas del mercado internacional seleccionadas para el máximo rendimiento y seguridad.</p>
+                <h3 className="text-white text-2xl font-bold">Ventas al Mayor</h3>
+                <p className="text-white/50 text-lg leading-relaxed italic">También hacemos ventas al por mayor en contenedores.</p>
               </div>
             </div>
 

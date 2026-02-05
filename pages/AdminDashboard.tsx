@@ -1,18 +1,26 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Tire } from '../types';
 import { BRANDS } from '../constants';
 
 interface AdminDashboardProps {
   tires: Tire[];
   setTires: React.Dispatch<React.SetStateAction<Tire[]>>;
+  setIsAdminLoginView: (isLogin: boolean) => void;
 }
 
 const SPEED_RATINGS = ['Q', 'R', 'S', 'T', 'H', 'V', 'W', 'Y', '(Y)'];
 
-const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
+const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsAdminLoginView }) => {
   // Estados de navegación interna del administrador: 'welcome' | 'login' | 'dashboard'
   const [adminStep, setAdminStep] = useState<'welcome' | 'login' | 'dashboard'>('welcome');
+
+  // INICIO DE MODIFICACIÓN: Efecto para sincronizar la visibilidad del Navbar
+  useEffect(() => {
+    setIsAdminLoginView(adminStep === 'login');
+    return () => setIsAdminLoginView(false);
+  }, [adminStep, setIsAdminLoginView]);
+  
   
   // Estados para seguridad
   const [username, setUsername] = useState('');
@@ -177,9 +185,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
   if (adminStep === 'welcome') {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background-dark overflow-hidden relative pt-24 pb-12">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary rounded-full blur-[150px]"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary rounded-full blur-[150px]"></div>
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-primary/20 rounded-full blur-[120px] animate-float"></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-dark_coffee/30 rounded-full blur-[150px] animate-float" style={{ animationDelay: '-5s' }}></div>
+          <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '8s' }}></div>
         </div>
 
         <div className="w-full max-w-2xl bg-surface-dark/40 backdrop-blur-2xl border border-white/10 rounded-[3.5rem] p-10 md:p-16 shadow-2xl space-y-10 text-center relative z-10 animate-in fade-in zoom-in duration-700">
@@ -220,15 +229,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
   if (adminStep === 'login') {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background-dark relative pt-24 pb-12">
-        {/* Botón Volver ajustado para no chocar con el navbar */}
-        <button 
-          onClick={() => setAdminStep('welcome')}
-          className="absolute top-28 left-6 md:left-20 text-white/40 hover:text-primary flex items-center gap-3 font-black text-lg uppercase tracking-[0.2em] italic transition-all group z-20"
-        >
-          <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span> 
-          Volver 
-        </button>
-
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
         <div className="w-full max-w-md bg-surface-dark border border-white/10 rounded-[2.5rem] p-10 md:p-12 shadow-2xl space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500 relative z-10">
           <div className="text-center space-y-3">
             <span className="material-symbols-outlined text-primary text-5xl mb-2">lock</span>
@@ -252,6 +253,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires }) => {
             <button type="submit" className="w-full h-14 bg-primary text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all italic shadow-lg">
               Iniciar Sesión
             </button>
+            <button 
+                type="button"
+                onClick={() => setAdminStep('welcome')}
+                className="w-full h-14 rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest italic"
+              >
+                <span className="material-symbols-outlined text-lg">arrow_back</span>
+                Volver Atrás
+              </button>
           </form>
         </div>
       </div>

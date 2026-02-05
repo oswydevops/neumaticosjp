@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="es" class="dark">
 <head>
-    <script src="http://localhost:8097"></script>
-    <script src="http://undefined:8097"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JP TIRES | Seguridad y Confort</title>
@@ -70,6 +68,30 @@
             -webkit-text-fill-color: transparent;
             animation: textShine 4s linear infinite;
         }
+
+        /* INICIO: Animaciones de fondo para Admin */
+        @keyframes aurora {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .bg-aurora {
+          background: linear-gradient(-45deg, #171614, #3a2618, #9a8873, #171614, #24221d);
+          background-size: 400% 400%;
+          animation: aurora 15s ease infinite;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .animate-float {
+          animation: float 10s ease-in-out infinite;
+        }
+        /* FIN: Animaciones de fondo para Admin */
 
         /* Scrollbar delgado para filtros */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }

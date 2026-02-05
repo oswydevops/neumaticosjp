@@ -10,6 +10,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const isAdminPage = currentPage === 'admin';
+
   const navItems: { label: string; value: Page }[] = [
     { label: 'Inicio', value: 'home' },
     { label: 'Catálogo', value: 'catalog' },
@@ -26,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         >
           <div className="size-15 transform group-hover:scale-110 transition-transform flex items-center justify-center">
             <img 
-              src="./public/icons/logoJP.svg" 
+              src="/icons/logoJP.svg" 
               alt="Neumáticos JP Logo" 
               className="w-[40px] h-[40px] object-contain"
               onError={(e) => {
@@ -46,6 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         </div>
 
         {/* Desktop Nav */}
+        {!isAdminPage && (
         <nav className="hidden md:flex items-center gap-10">
           {navItems.map((item) => (
             <button
@@ -59,9 +62,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             </button>
           ))}
         </nav>
+        )}
 
         <div className="flex items-center gap-4">
-          
+          {!isAdminPage && (
+          <>
           {/* Mobile Menu Button */}
           <button 
             className="md:hidden text-white"
@@ -70,12 +75,15 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             <span className="material-symbols-outlined text-3xl">
               {isMenuOpen ? 'close' : 'menu'}
             </span>
+          
           </button>
+          </>
+          )}
         </div>
       </div>
 
       {/* Mobile Nav Dropdown */}
-      {isMenuOpen && (
+      {!isAdminPage && isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-surface-dark border-b border-white/10 p-6 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
           {navItems.map((item) => (
             <button
