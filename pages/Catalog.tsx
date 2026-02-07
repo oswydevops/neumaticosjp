@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Tire, FilterState } from '../types';
 import { BRANDS, WIDTHS, PROFILES, DIAMETERS } from '../constants';
+import { useLanguage } from '../LanguageContext';
 
 interface CatalogProps {
   tires: Tire[];
@@ -8,6 +9,7 @@ interface CatalogProps {
 }
 
 const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
+  const { t } = useLanguage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     widths: [],
@@ -229,7 +231,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
           )}
 
           <div className="flex justify-between items-center px-2">
-            <p className="text-white/40 text-sm font-medium italic">
+            <p className="text-white/40 text-lg font-medium">
               Mostrando <span className="text-primary font-black text-lg ml-1 not-italic font-outfit">{filteredTires.length}</span> neumáticos seleccionados
             </p>
           </div>

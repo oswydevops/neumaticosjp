@@ -10,27 +10,27 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import ProductModal from './components/ProductModal';
+import { subscribeToTires } from './services/firebase';
+import { LanguageProvider } from './LanguageContext';
 
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
-
   const [isAdminLoginView, setIsAdminLoginView] = useState(false);
 
-  const [tires, setTires] = useState<Tire[]>(() => {
-    try {
-      const saved = localStorage.getItem('jp_inventory_data');
-      return saved ? JSON.parse(saved) : INITIAL_TIRES;
-    } catch {
-      return INITIAL_TIRES;
-    }
-  });
-
+  // INICIO DE MODIFICACIÓN: El estado inicial ahora es vacío y se llena desde Firebase
+  const [tires, setTires] = useState<Tire[]>([]);
 
   useEffect(() => {
-    localStorage.setItem('jp_inventory_data', JSON.stringify(tires));
-  }, [tires]);
+    // Suscribirse a los cambios de Firebase (reemplaza a localStorage)
+    const unsubscribe = subscribeToTires((updatedTires) => {
+      setTires(updatedTires);
+    });
+
+    return () => unsubscribe(); // Limpiar suscripción al desmontar
+  }, []);
+  // FIN DE MODIFICACIÓN
 
 
   // Escuchar cambios en el hash para navegación manual (ej: /#admin)
@@ -77,6 +77,7 @@ const App: React.FC = () => {
 
 
   return (
+    <LanguageProvider>
     <div className="flex flex-col min-h-screen">
       {!isAdminLoginView && <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />}
       
@@ -94,6 +95,7 @@ const App: React.FC = () => {
         />
       )}
     </div>
+    </LanguageProvider>
   );
 };
 

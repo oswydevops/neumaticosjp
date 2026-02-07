@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Tire } from '../types';
+import { useLanguage } from '../LanguageContext';
 
 interface ProductModalProps {
   tire: Tire;
@@ -8,8 +9,10 @@ interface ProductModalProps {
 }
 
 const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
+  const { t, language } = useLanguage();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
 
 
   const handleCloseRequest = () => {

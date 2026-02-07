@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Page } from '../types';
+import { useLanguage } from '../LanguageContext';
 
 interface FooterProps {
   onNavigate: (page: Page) => void;
@@ -8,6 +9,7 @@ interface FooterProps {
 
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const { t } = useLanguage();
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | 'docs' | null>(null);
 
   const closeModal = () => setActiveModal(null);
@@ -58,7 +60,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     className="text-white/40 hover:text-white transition-colors flex items-center gap-3 group font-outfit"
                   >
                     <span className="material-symbols-outlined text-xl group-hover:text-primary">description</span>
-                    Guía de Usuario
+                    Centro de Ayuda
                   </button>
                 </li>
                 
@@ -84,7 +86,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <button onClick={() => setActiveModal('terms')} className="text-white/40 hover:text-white transition-colors font-outfit">Términos y Condiciones</button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveModal('privacy')} className="text-white/40 hover:text-white transition-colors font-outfit">Política de Privacidad</button>
+                  <button onClick={() => setActiveModal('privacy')} className="text-white/40 hover:text-white transition-colors font-outfit">Políticas de Privacidad</button>
                 </li>
               </ul>
             </div>
@@ -163,7 +165,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   </span>
                 </div>
                 <h2 className="text-2xl font-black text-white tracking-tight font-serif italic capitalize">
-                  {activeModal === 'docs' ? 'Guía de Usuario' : activeModal === 'terms' ? 'Términos y Condiciones' : 'Política de Privacidad'}
+                  {activeModal === 'docs' ? 'Centro de Ayuda' : activeModal === 'terms' ? 'Términos y Condiciones' : 'Políticas de Privacidad'}
                 </h2>
               </div>
               <button onClick={closeModal} className="size-10 rounded-full hover:bg-white/5 flex items-center justify-center text-white/40 hover:text-white transition-all">
@@ -175,12 +177,14 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {activeModal === 'terms' && (
                 <>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">1. Garantía de Productos</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Todos nuestros neumáticos cuentan con garantía oficial de fábrica contra defectos de fabricación por un periodo de 5 años desde la fecha de compra.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">1. Introducción</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">Estos Términos y Condiciones rigen el uso de nuestro sitio web [JP TIRES], operado por [Jean Plourde]. El Sitio actúa como un catálogo en línea para la venta de neumáticos importados directamente desde China y vendidos en Canadá. Al acceder o utilizar el Sitio, usted acepta estar vinculado por estos Términos. Si no está de acuerdo, no utilice el Sitio.</p>
                   </section>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">2. Devoluciones</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Se aceptan cambios dentro de los 30 días posteriores a la compra, siempre que el neumático no haya sido montado ni rodado.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">2. Uso del Sitio</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">El sitio es solo para fines informativos y de compra. No está destinado a menores de 18 años sin supervisión parental.</p>
+                    <p className="text-white/60 text-sm leading-relaxed">Usted se compromete a no utilizar el sitio para fines ilegales, fraudulentos o que violen derechos de terceros.</p>
+                    <p className="text-white/60 text-sm leading-relaxed">Nos reservamos el derecho a modificar, suspender o discontinuar el Sitio en cualquier momento sin previo aviso.</p>
                   </section>
                   <section className="space-y-3">
                     <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">3. Precios y Stock</h3>
@@ -192,12 +196,20 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {activeModal === 'privacy' && (
                 <>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Recolección de Datos</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Neumáticos JP solo solicita datos de contacto básicos (Nombre y WhatsApp) para procesar sus consultas de presupuesto de forma personalizada.</p>
-                  </section>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Información que Recopilamos</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">Información Personal: Número de teléfono y correo electrónico</p>
+                    <p className="text-white/60 text-sm leading-relaxed">Información de Contacto: Datos proporcionados al contactarnos vía redes sociales, teléfono o correo electrónico, como mensajes, consultas o reclamos.</p>
+                    <p className="text-white/60 text-sm leading-relaxed">Información Automática: Dirección IP, tipo de navegador, páginas visitadas y cookies para mejorar la experiencia del usuario.</p>
+                  </section>  
+                  
                   <section className="space-y-3">
                     <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Seguridad de la Información</h3>
                     <p className="text-white/60 text-sm leading-relaxed">Sus datos nunca serán compartidos con terceros con fines publicitarios. La información se utiliza exclusivamente para la relación comercial cliente-empresa.</p>
+                  </section>
+
+                  <section className="space-y-3">
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Modificaciones a las Políticas</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">Podemos actualizar estas políticas. Los cambios se publicarán en el sitio web, deberás revisarlas periódicamente.</p>
                   </section>
                 </>
               )}
@@ -207,14 +219,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <section className="space-y-4">
                     <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">Guía de Usuario</h3>
                     <p className="text-white/60 leading-relaxed font-light">
-                      Navega por nuestro catálogo premium utilizando los filtros laterales. Puedes buscar por marca, ancho, perfil o diámetro. Al seleccionar un neumático, se desplegará una ficha técnica detallada con acceso directo a WhatsApp para consulta de stock.
-                    </p>
-                  </section>
-
-                  <section className="space-y-4">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">Gestión de Inventario</h3>
-                    <p className="text-white/60 leading-relaxed font-light">
-                      El panel de administración permite cargar nuevos productos, editar especificaciones técnicas y gestionar el stock en tiempo real. Los estados "Stock Bajo" y "Borrador" ayudan a mantener el catálogo actualizado para el cliente final.
+                      Usteded como usuario podrá navegar por nuestro catálogo premium utilizando los filtros laterales, puede buscar por marca, ancho, perfil o diámetro. Al seleccionar un neumático, se desplegará una ficha técnica detallada con todas las especificaciones, en la misma ademas encontrará su precio y disponibilidad, para concretar la compra deberá contactar al vendedor vía teléfono o email, donde se confirmará el stock, se le brindará toda la asistencia necesaria y podrá negociar precio según la cantidad a comprar. En la sección de contacto, encontrará los datos del vendedor para coordinar la operación así como horarios de atención y métodos de pago aceptados.
                     </p>
                   </section>
 
@@ -230,12 +235,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         <span className="text-white">Tailwind CSS v3.4</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Iconografía</span>
-                        <span className="text-white">Google Material Symbols</span>
+                        <span className="text-white/40">Base de Datos</span>
+                        <span className="text-white">Firebase</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Tipografías</span>
-                        <span className="text-white">Manrope, Playfair, Outfit</span>
+                        <span className="text-white/40">Versión del Producto</span>
+                        <span className="text-white">v1.0.0</span>
                       </div>
                     </div>
                   </section>

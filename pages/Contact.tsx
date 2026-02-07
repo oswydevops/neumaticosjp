@@ -1,17 +1,19 @@
 
 import React from 'react';
+import { useLanguage } from '../LanguageContext';
 
 const Contact: React.FC = () => {
   const mapAddress = "1412 Bernier St Saint-Jean-sur-Richelieu,J2W 1G3, Quebec";
   const encodedAddress = encodeURIComponent(mapAddress);
   const mapUrl = `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const { t } = useLanguage();
 
   const paymentMethods = [
-    { name: 'Visa', iconPath: './public/icons/visa.svg' },
-    { name: 'Mastercard', iconPath: './public/icons/mastercard.svg' },
-    { name: 'PayPal', iconPath: './public/icons/paypal.svg' },
-    { name: 'Transferencia', iconPath: './public/icons/bank.svg' },
-    { name: 'Efectivo', iconPath: './public/icons/cash.svg' }
+    { name: 'Visa', iconPath: '/icons/visa.svg' },
+    { name: 'Mastercard', iconPath: '/icons/mastercard.svg' },
+    { name: 'PayPal', iconPath: '/icons/paypal.svg' },
+    { name: 'Transferencia', iconPath: '/icons/bank.svg' },
+    { name: 'Efectivo', iconPath: '/icons/cash.svg' }
   ];
 
   return (

@@ -1,23 +1,47 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Page } from '../types';
+import { useLanguage } from '../LanguageContext';
+import { Language } from '../translations';
 
 interface NavbarProps {
   currentPage: Page;
   onNavigate: (page: Page) => void;
 }
 
+const languageOptions: { code: Language; label: string; flag: string }[] = [
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+];
+
 const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
+  const { language, setLanguage, t } = useLanguage();
 
   const isAdminPage = currentPage === 'admin';
 
   const navItems: { label: string; value: Page }[] = [
-    { label: 'Inicio', value: 'home' },
-    { label: 'Catálogo', value: 'catalog' },
-    { label: 'Nosotros', value: 'about' },
-    { label: 'Contacto', value: 'contact' },
+    { label: t.nav.home, value: 'home' },
+    { label: t.nav.catalog, value: 'catalog' },
+    { label: t.nav.about, value: 'about' },
+    { label: t.nav.contact, value: 'contact' },
   ];
+
+  const currentLang = languageOptions.find(l => l.code === language) || languageOptions[0];
+
+  // Close language menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
+        setIsLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="fixed top-0 z-50 w-full backdrop-blur-md bg-background-dark/80 border-b border-white/10 px-4 md:px-10 lg:px-20 py-4">
@@ -65,6 +89,45 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         )}
 
         <div className="flex items-center gap-4">
+          {/* Language Selector */}
+          <div className="relative" ref={langMenuRef}>
+            <button
+              onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-200"
+            >
+              <span className="text-lg">{currentLang.flag}</span>
+              <span className="hidden sm:inline text-white/80 text-sm font-medium">{currentLang.code.toUpperCase()}</span>
+              <span className="material-symbols-outlined text-white/60 text-sm transition-transform duration-200" style={{ transform: isLangMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                expand_more
+              </span>
+            </button>
+            
+            {isLangMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 w-40 bg-surface-dark border border-white/10 rounded-lg shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                {languageOptions.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setIsLangMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                      language === lang.code 
+                        ? 'bg-primary/20 text-primary' 
+                        : 'text-white/70 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <span className="text-lg">{lang.flag}</span>
+                    <span className="text-sm font-medium">{lang.label}</span>
+                    {language === lang.code && (
+                      <span className="material-symbols-outlined text-primary text-sm ml-auto">check</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {!isAdminPage && (
           <>
           {/* Mobile Menu Button */}

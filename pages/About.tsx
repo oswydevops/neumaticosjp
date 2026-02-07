@@ -1,17 +1,19 @@
 
 import React from 'react';
 import { Page } from '../types';
+import { useLanguage } from '../LanguageContext';
 
 interface AboutProps {
   onNavigate: (page: Page) => void;
 }
 
 const About: React.FC<AboutProps> = ({ onNavigate }) => {
+  const { t } = useLanguage();
   return (
     <div className="animate-in fade-in duration-500">
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <img 
-          src="/public/back.png" 
+          src="/back.png" 
           alt="About Us Background"
           className="absolute inset-0 w-full h-full object-cover bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"
         />
@@ -49,10 +51,10 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
           </div>
           <div className="grid grid-cols-2 gap-6 h-[500px]">
             <div className="rounded-3xl overflow-hidden shadow-2xl mt-12 transform hover:scale-105 transition-transform duration-500">
-              <img src="/public/images/caucho.jpg" className="w-full h-full object-cover" alt="Wheel detail" />
+              <img src="/images/caucho.jpg" className="w-full h-full object-cover" alt="Wheel detail" />
             </div>
             <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-              <img src="/public/images/taller.jpg" className="w-full h-full object-cover" alt="Mechanic working" />
+              <img src="/images/taller.jpg" className="w-full h-full object-cover" alt="Mechanic working" />
             </div>
           </div>
         </div>

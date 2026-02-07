@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Page, Tire } from '../types';
+import { useLanguage } from '../LanguageContext';
+
 
 
 interface HomeProps {
@@ -9,6 +11,8 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
@@ -90,7 +94,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </div>
               <div className="space-y-4">
                 <h3 className="text-white text-2xl font-bold">Catálogo Extenso</h3>
-                <p className="text-white/50 text-lg leading-relaxed italic">Variedad total de medidas y compuestos para autos deportivos, camionetas y SUVs de lujo.</p>
+                <p className="text-white/50 text-lg leading-relaxed italic">Variedad total de medidas y marcas disponibles para su camión o trailer.</p>
               </div>
             </div>
           </div>

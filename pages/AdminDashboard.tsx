@@ -2,6 +2,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tire } from '../types';
 import { BRANDS } from '../constants';
+import { uploadTireImage, saveTire, updateTireData, deleteTireFromDb } from '../services/firebase';
+import { useLanguage } from '../LanguageContext';
 
 interface AdminDashboardProps {
   tires: Tire[];
@@ -12,8 +14,8 @@ interface AdminDashboardProps {
 const SPEED_RATINGS = ['Q', 'R', 'S', 'T', 'H', 'V', 'W', 'Y', '(Y)'];
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsAdminLoginView }) => {
-  // Estados de navegación interna del administrador: 'welcome' | 'login' | 'dashboard'
   const [adminStep, setAdminStep] = useState<'welcome' | 'login' | 'dashboard'>('welcome');
+  const { t, language } = useLanguage();
 
   // INICIO DE MODIFICACIÓN: Efecto para sincronizar la visibilidad del Navbar
   useEffect(() => {
@@ -34,9 +36,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
   const [editingId, setEditingId] = useState<string | null>(null);
   const [tireToDelete, setTireToDelete] = useState<Tire | null>(null);
   
+  // Estados para manejo de archivos
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageUrlInput, setImageUrlInput] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   
   // Estado inicial del formulario. Los campos numéricos se manejan como strings/numbers para permitir edición fluida.
   const [formData, setFormData] = useState<any>({
@@ -99,21 +104,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
     setIsDeleteModalOpen(true);
   };
 
-  const handleDelete = () => {
+  // INICIO DE MODIFICACIÓN: Borrado en Firebase
+  const handleDelete = async () => {
     if (tireToDelete) {
-      setTires(prev => prev.filter(t => t.id !== tireToDelete.id));
-      setIsDeleteModalOpen(false);
-      setTireToDelete(null);
+      try {
+        await deleteTireFromDb(tireToDelete.id, tireToDelete.image);
+        setIsDeleteModalOpen(false);
+        setTireToDelete(null);
+      } catch (err) {
+        alert("Error al eliminar el producto.");
+      }
     }
   };
 
-  const toggleStatus = (id: string) => {
-    setTires(prev => prev.map(t => {
-      if (t.id === id) {
-        return { ...t, status: t.status === 'inactive' ? 'active' : 'inactive' };
-      }
-      return t;
-    }));
+  const toggleStatus = async (tire: Tire) => {
+    try {
+      const newStatus = tire.status === 'inactive' ? 'active' : 'inactive';
+      await updateTireData(tire.id, { status: newStatus as any });
+    } catch (err) {
+      alert("Error al actualizar el estado.");
+    }
   };
 
   // Manejo de inputs permitiendo estados vacíos para que el usuario borre el '0' inicial
@@ -147,37 +157,56 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
     setFormData((prev: any) => ({ ...prev, image: url }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // INICIO DE MODIFICACIÓN: Submit con integración de Firebase Storage y Firestore
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.image) {
-      alert('Por favor, ingresa una imagen (archivo o URL).');
-      return;
-    }
+    setIsUploading(true);
 
-    const cleanData: Tire = {
-      ...formData,
-      width: Number(formData.width) || 0,
-      profile: Number(formData.profile) || 0,
-      diameter: Number(formData.diameter) || 0,
-      loadIndex: Number(formData.loadIndex) || 0,
-      stock: Number(formData.stock) || 0,
-      price: Number(formData.price) || 0,
-      maxWeight: Number(formData.maxWeight) || 0
-    } as Tire;
+    try {
+      let finalImageUrl = formData.image;
 
-    if (modalMode === 'edit' && editingId) {
-      setTires(prev => prev.map(t => t.id === editingId ? { ...cleanData, id: editingId } : t));
-    } else {
-      const newTire: Tire = {
-        ...cleanData,
-        id: Date.now().toString(),
+      // 1. Subir imagen si hay un archivo seleccionado
+      if (selectedFile) {
+        finalImageUrl = await uploadTireImage(selectedFile);
+      } else if (imageUrlInput) {
+        finalImageUrl = imageUrlInput;
+      }
+
+      if (!finalImageUrl) {
+        alert('Por favor, selecciona una imagen.');
+        setIsUploading(false);
+        return;
+      }
+
+      const tirePayload = {
+        ...formData,
+        image: finalImageUrl,
+        width: Number(formData.width) || 0,
+        profile: Number(formData.profile) || 0,
+        diameter: Number(formData.diameter) || 0,
+        loadIndex: Number(formData.loadIndex) || 0,
+        stock: Number(formData.stock) || 0,
+        price: Number(formData.price) || 0,
+        maxWeight: Number(formData.maxWeight) || 0
       };
-      setTires(prev => [newTire, ...prev]);
-    }
 
-    setIsModalOpen(false);
-    resetForm();
+      // 2. Guardar en Firestore
+      if (modalMode === 'edit' && editingId) {
+        await updateTireData(editingId, tirePayload);
+      } else {
+        await saveTire(tirePayload);
+      }
+
+      setIsModalOpen(false);
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al guardar.");
+    } finally {
+      setIsUploading(false);
+    }
   };
+  // FIN DE MODIFICACIÓN
 
   const cadFormatter = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
 
@@ -218,7 +247,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
           </div>
 
           <p className="text-white/20 text-[9px] font-black uppercase tracking-[0.4em] pt-8">
-            Sistema de Gestión Integral • v1.0
+            Sistema de Gestión Integral • v1.0.0
           </p>
         </div>
       </div>
@@ -277,7 +306,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
               <h1 className="text-5xl font-black text-white tracking-tight font-serif">Gestión de Inventario</h1>
               <span className="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase italic">Admin Mode</span>
             </div>
-            <p className="text-pale-sky text-lg italic">Panel para la gestión de productos de Jean Plourde.</p>
+            <p className="text-pale-sky text-lg italic">Hola Jean Plourde, este es tu panel para la gestión de tu catálogo de neumáticos.</p>
           </div>
           <div className="flex items-center gap-4">
             <button 
@@ -436,7 +465,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
                   </td>
                   <td className="px-10 py-8 text-right flex items-center justify-end gap-6">
                     <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125"><span className="material-symbols-outlined text-2xl">edit</span></button>
-                    <button onClick={() => toggleStatus(tire.id)} className={`text-[9px] font-black px-4 py-2 rounded-lg border uppercase ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20' : 'text-amber-500 border-amber-500/20'}`}>{tire.status === 'inactive' ? 'Mostrar' : 'Ocultar'}</button>
+                    <button onClick={() => toggleStatus(tire)} className={`text-[9px] font-black px-4 py-2 rounded-lg border uppercase ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20' : 'text-amber-500 border-amber-500/20'}`}>{tire.status === 'inactive' ? 'Mostrar' : 'Ocultar'}</button>
                     <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all"><span className="material-symbols-outlined text-2xl">delete</span></button>
                   </td>
                 </tr>
