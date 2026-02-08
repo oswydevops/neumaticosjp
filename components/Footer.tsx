@@ -16,86 +16,86 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   return (
     <>
-      <footer className="relative bg-gradient-to-br from-surface-dark/80 via-background-dark/75 to-surface-dark/90 backdrop-blur-2xl border-t border-white/10 px-6 lg:px-40 pt-20 pb-10 overflow-hidden">
+      <footer className="relative bg-gradient-to-br from-surface-dark/80 via-background-dark/75 to-surface-dark/90 backdrop-blur-2xl border-t border-white/10 px-4 sm:px-6 lg:px-40 pt-12 md:pt-16 lg:pt-20 pb-8 md:pb-10 overflow-hidden">
       {/* Decorative background glows for the blur effect visibility */}
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
         <div className="max-w-[1440px] mx-auto">
           {/* Bloques Principales */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 lg:gap-16 mb-12 md:mb-16 lg:mb-20">
             
             {/* Bloque 1: Marca y Frase */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 md:space-y-6">
               <div 
-                className="flex items-center gap-4 group cursor-pointer w-fit" 
+                className="flex items-center gap-3 md:gap-4 group cursor-pointer w-fit" 
                 onClick={() => onNavigate('home')}
               >
-                <div className="size-10 transform group-hover:scale-110 transition-transform flex items-center justify-center mt-1">
+                <div className="size-8 md:size-10 transform group-hover:scale-110 transition-transform flex items-center justify-center mt-1">
                   <img 
                     src="/icons/logoJP.svg" 
                     alt="Neumáticos JP Logo" 
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.innerHTML = `<span class="material-symbols-outlined text-primary text-4xl">tire_repair</span>`;
+                      e.currentTarget.parentElement!.innerHTML = `<span class="material-symbols-outlined text-primary text-3xl md:text-4xl">tire_repair</span>`;
                     }}
                   />
                 </div>
-                <h2 className="text-white/50 font-serif text-4xl font-bold italic cursor-pointer hover:text-primary transition-colors">JP TIRES</h2>
+                <h2 className="text-white/50 font-serif text-2xl md:text-3xl lg:text-4xl font-bold italic cursor-pointer hover:text-primary transition-colors">JP TIRES</h2>
               </div>
-              <p className="text-white/50 text-xl font-light leading-relaxed max-w-md italic">
-                "Elevando tu experiencia de conducción al siguiente nivel de lujo y rendimiento..."
+              <p className="text-white/50 text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-md italic">
+                {t.footer.brandDesc}
               </p>
             </div>
 
             {/* Bloque 2: Documentación y Sistema */}
-            <div className="space-y-8">
-              <h4 className="text-primary text-[10px] font-black uppercase tracking-[0.4em] italic border-l-2 border-primary/30 pl-4">
-                Recursos
+            <div className="space-y-6 md:space-y-8">
+              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic border-l-2 border-primary/30 pl-3 md:pl-4">
+                {t.footer.resourcesTitle}
               </h4>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-3 md:gap-4">
                 <li>
-                  <button 
+                  <button
                     onClick={() => setActiveModal('docs')}
-                    className="text-white/40 hover:text-white transition-colors flex items-center gap-3 group font-outfit"
+                    className="text-white/40 hover:text-white transition-colors flex items-center gap-2 md:gap-3 group font-outfit text-sm md:text-base"
                   >
-                    <span className="material-symbols-outlined text-xl group-hover:text-primary">description</span>
-                    Centro de Ayuda
+                    <span className="material-symbols-outlined text-lg md:text-xl group-hover:text-primary">description</span>
+                    {t.footer.docs}
                   </button>
                 </li>
                 
                 <li>
-                  <a 
+                  <a
                     href="mailto:misredes9900@gmail.com?subject=Soporte Técnico Sistema"
-                    className="text-white/40 hover:text-white transition-colors flex items-center gap-3 group font-outfit"
+                    className="text-white/40 hover:text-white transition-colors flex items-center gap-2 md:gap-3 group font-outfit text-sm md:text-base"
                   >
-                    <span className="material-symbols-outlined text-xl group-hover:text-primary">contact_support</span>
-                    Soporte y Asistencia
+                    <span className="material-symbols-outlined text-lg md:text-xl group-hover:text-primary">contact_support</span>
+                    {t.footer.support}
                   </a>
                 </li>
               </ul>
             </div>
 
             {/* Bloque 3: Acceso Rápido */}
-            <div className="space-y-8">
-              <h4 className="text-primary text-[10px] font-black uppercase tracking-[0.4em] italic border-l-2 border-primary/30 pl-4">
-                Información Legal
+            <div className="space-y-6 md:space-y-8">
+              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic border-l-2 border-primary/30 pl-3 md:pl-4">
+                {t.footer.legalTitle}
               </h4>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-3 md:gap-4">
                 <li>
-                  <button onClick={() => setActiveModal('terms')} className="text-white/40 hover:text-white transition-colors font-outfit">Términos y Condiciones</button>
+                  <button onClick={() => setActiveModal('terms')} className="text-white/40 hover:text-white transition-colors font-outfit text-sm md:text-base">{t.footer.terms}</button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveModal('privacy')} className="text-white/40 hover:text-white transition-colors font-outfit">Políticas de Privacidad</button>
+                  <button onClick={() => setActiveModal('privacy')} className="text-white/40 hover:text-white transition-colors font-outfit text-sm md:text-base">{t.footer.privacy}</button>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* Barra de Copyright y Redes Sociales */}
-          <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-            <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.4em] font-outfit text-center md:text-left">
-              © 2026 JP TIRES, CANADÁ. TODOS LOS DERECHOS RESERVADOS. <span className="hidden sm:inline">|</span> <span className="italic text-white/10">EXCELENCIA AUTOMOTRIZ</span>
+          <div className="pt-8 md:pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+            <p className="text-white/20 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] font-outfit text-center md:text-left">
+              {t.footer.rights} <span className="hidden sm:inline">|</span> <span className="block sm:inline italic text-white/10 mt-1 sm:mt-0">{t.footer.excellence}</span>
             </p>
 
             {/* REDES SOCIALES CON ICONOS LOCALES Y ENLACES */}
@@ -165,7 +165,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   </span>
                 </div>
                 <h2 className="text-2xl font-black text-white tracking-tight font-serif italic capitalize">
-                  {activeModal === 'docs' ? 'Centro de Ayuda' : activeModal === 'terms' ? 'Términos y Condiciones' : 'Políticas de Privacidad'}
+                  {activeModal === 'docs' ? t.footer.modalDocsTitle : activeModal === 'terms' ? t.footer.modalTermsTitle : t.footer.modalPrivacyTitle}
                 </h2>
               </div>
               <button onClick={closeModal} className="size-10 rounded-full hover:bg-white/5 flex items-center justify-center text-white/40 hover:text-white transition-all">
@@ -177,18 +177,18 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {activeModal === 'terms' && (
                 <>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">1. Introducción</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Estos Términos y Condiciones rigen el uso de nuestro sitio web [JP TIRES], operado por [Jean Plourde]. El Sitio actúa como un catálogo en línea para la venta de neumáticos importados directamente desde China y vendidos en Canadá. Al acceder o utilizar el Sitio, usted acepta estar vinculado por estos Términos. Si no está de acuerdo, no utilice el Sitio.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalTermsIntro}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalTermsIntroText}</p>
                   </section>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">2. Uso del Sitio</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">El sitio es solo para fines informativos y de compra. No está destinado a menores de 18 años sin supervisión parental.</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Usted se compromete a no utilizar el sitio para fines ilegales, fraudulentos o que violen derechos de terceros.</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Nos reservamos el derecho a modificar, suspender o discontinuar el Sitio en cualquier momento sin previo aviso.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalTermsUse}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalTermsUseText1}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalTermsUseText2}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalTermsUseText3}</p>
                   </section>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">3. Precios y Stock</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Los precios publicados están sujetos a cambios sin previo aviso. La disponibilidad de stock debe ser confirmada vía WhatsApp antes de concretar el pago.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalTermsPricing}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalTermsPricingText}</p>
                   </section>
                 </>
               )}
@@ -196,20 +196,20 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {activeModal === 'privacy' && (
                 <>
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Información que Recopilamos</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Información Personal: Número de teléfono y correo electrónico</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Información de Contacto: Datos proporcionados al contactarnos vía redes sociales, teléfono o correo electrónico, como mensajes, consultas o reclamos.</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Información Automática: Dirección IP, tipo de navegador, páginas visitadas y cookies para mejorar la experiencia del usuario.</p>
-                  </section>  
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalPrivacyInfo}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalPrivacyInfoPersonal}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalPrivacyInfoContact}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalPrivacyInfoAuto}</p>
+                  </section>
                   
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Seguridad de la Información</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Sus datos nunca serán compartidos con terceros con fines publicitarios. La información se utiliza exclusivamente para la relación comercial cliente-empresa.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalPrivacySecurity}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalPrivacySecurityText}</p>
                   </section>
 
                   <section className="space-y-3">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">Modificaciones a las Políticas</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">Podemos actualizar estas políticas. Los cambios se publicarán en el sitio web, deberás revisarlas periódicamente.</p>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-widest italic">{t.footer.modalPrivacyChanges}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">{t.footer.modalPrivacyChangesText}</p>
                   </section>
                 </>
               )}
@@ -217,29 +217,29 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {activeModal === 'docs' && (
                 <>
                   <section className="space-y-4">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">Guía de Usuario</h3>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">{t.footer.modalDocsUserGuide}</h3>
                     <p className="text-white/60 leading-relaxed font-light">
-                      Usteded como usuario podrá navegar por nuestro catálogo premium utilizando los filtros laterales, puede buscar por marca, ancho, perfil o diámetro. Al seleccionar un neumático, se desplegará una ficha técnica detallada con todas las especificaciones, en la misma ademas encontrará su precio y disponibilidad, para concretar la compra deberá contactar al vendedor vía teléfono o email, donde se confirmará el stock, se le brindará toda la asistencia necesaria y podrá negociar precio según la cantidad a comprar. En la sección de contacto, encontrará los datos del vendedor para coordinar la operación así como horarios de atención y métodos de pago aceptados.
+                      {t.footer.modalDocsUserGuideText}
                     </p>
                   </section>
 
                   <section className="space-y-4">
-                    <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">Especificaciones Técnicas</h3>
+                    <h3 className="text-primary text-[10px] font-black uppercase tracking-[0.3em] italic">{t.footer.modalDocsTechSpecs}</h3>
                     <div className="bg-white/5 rounded-2xl p-6 border border-white/10 space-y-3 font-outfit">
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Frontend Framework</span>
+                        <span className="text-white/40">{t.footer.modalDocsFrontend}</span>
                         <span className="text-white">React 19 (ESM)</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Estilos</span>
+                        <span className="text-white/40">{t.footer.modalDocsStyles}</span>
                         <span className="text-white">Tailwind CSS v3.4</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Base de Datos</span>
+                        <span className="text-white/40">{t.footer.modalDocsDatabase}</span>
                         <span className="text-white">Firebase</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/40">Versión del Producto</span>
+                        <span className="text-white/40">{t.footer.modalDocsVersion}</span>
                         <span className="text-white">v1.0.0</span>
                       </div>
                     </div>
@@ -250,7 +250,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
             <div className="p-8 bg-white/[0.02] border-t border-white/5">
               <button onClick={closeModal} className="w-full h-14 rounded-2xl bg-primary text-black font-black text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-primary/20 italic">
-                Cerrar Ventana
+                {t.footer.closeWindow}
               </button>
             </div>
           </div>

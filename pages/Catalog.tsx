@@ -73,8 +73,8 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
       <div className="relative z-10 max-w-[1440px] mx-auto space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4">
-            <h1 className="text-6xl font-black font-serif text-white tracking-tight">Catálogo de Neumáticos</h1>
-            <p className="text-pale-sky text-xl italic">Explora nuestra selección premium de neumáticos de alto rendimiento.</p>
+            <h1 className="text-6xl font-black font-serif text-white tracking-tight">{t.catalog.title}</h1>
+            <p className="text-pale-sky text-xl italic">{t.catalog.subtitle}</p>
           </div>
           
           <button 
@@ -82,7 +82,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
             className="flex items-center justify-center gap-3 bg-white/5 backdrop-blur-md hover:bg-primary hover:text-black border border-white/10 hover:border-primary px-8 py-4 rounded-2xl transition-all duration-300 group shadow-xl"
           >
             <span className="material-symbols-outlined transition-transform group-hover:rotate-180">tune</span>
-            <span className="font-black uppercase tracking-widest text-sm">Filtros</span>
+            <span className="font-black uppercase tracking-widest text-sm">{t.catalog.filters}</span>
             {hasActiveFilters && (
               <span className="bg-primary text-black group-hover:bg-black group-hover:text-primary size-6 rounded-full flex items-center justify-center text-[10px] font-black transition-colors">
                 {activeFiltersCount}
@@ -112,9 +112,9 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                   <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                     <span className="material-symbols-outlined text-3xl">filter_list</span>
                   </div>
-                  <h3 className="text-2xl font-black text-white tracking-tight font-serif italic">Configurar Búsqueda</h3>
+                  <h3 className="text-2xl font-black text-white tracking-tight font-serif italic">{t.catalog.configSearch}</h3>
                 </div>
-                <button 
+                <button
                   onClick={() => setIsSidebarOpen(false)}
                   className="size-12 rounded-full hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all"
                 >
@@ -127,13 +127,13 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                 
                 {/* Campo de búsqueda por texto */}
                 <div className="space-y-4">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-primary block border-l-2 border-primary/30 pl-4 italic">Búsqueda rápida</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-primary block border-l-2 border-primary/30 pl-4 italic">{t.catalog.quickSearch}</label>
                   <div className="relative">
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={filters.search}
                       onChange={(e) => setFilters({...filters, search: e.target.value})}
-                      placeholder="Ej: Pilot Sport 4S..."
+                      placeholder={t.catalog.searchPlaceholder}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl h-16 px-8 text-lg text-white focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all pr-14 placeholder:text-white/20 italic font-outfit"
                     />
                     <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 text-primary">search</span>
@@ -141,34 +141,34 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                 </div>
 
                 {/* Grupos de filtros (Marcas, Ancho, Perfil, Diámetro) */}
-                <FilterGroup 
-                  label="Marcas de Élite" 
-                  options={BRANDS} 
-                  selected={filters.brands} 
-                  onToggle={(val) => toggleFilter('brands', val)} 
+                <FilterGroup
+                  label={t.catalog.eliteBrands}
+                  options={BRANDS}
+                  selected={filters.brands}
+                  onToggle={(val) => toggleFilter('brands', val)}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <FilterGroup 
-                    label="Ancho (mm)" 
-                    options={WIDTHS} 
-                    selected={filters.widths} 
-                    onToggle={(val) => toggleFilter('widths', val)} 
+                  <FilterGroup
+                    label={t.catalog.widthLabel}
+                    options={WIDTHS}
+                    selected={filters.widths}
+                    onToggle={(val) => toggleFilter('widths', val)}
                   />
 
-                  <FilterGroup 
-                    label="Perfil (%)" 
-                    options={PROFILES} 
-                    selected={filters.profiles} 
-                    onToggle={(val) => toggleFilter('profiles', val)} 
+                  <FilterGroup
+                    label={t.catalog.profileLabel}
+                    options={PROFILES}
+                    selected={filters.profiles}
+                    onToggle={(val) => toggleFilter('profiles', val)}
                   />
                 </div>
 
-                <FilterGroup 
-                  label="Diámetro (R)" 
-                  options={DIAMETERS} 
-                  selected={filters.diameters} 
-                  onToggle={(val) => toggleFilter('diameters', val)} 
+                <FilterGroup
+                  label={t.catalog.diameterLabel}
+                  options={DIAMETERS}
+                  selected={filters.diameters}
+                  onToggle={(val) => toggleFilter('diameters', val)}
                   prefix="R"
                 />
               </div>
@@ -176,23 +176,23 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
               {/* Pie del Modal (Footer) con botones de acción */}
               <div className="p-8 border-t border-white/5 bg-white/[0.02] flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 flex flex-col justify-center px-2">
-                  <span className="text-[10px] font-black text-white/30 uppercase tracking-widest italic">Coincidencias</span>
-                  <span className="text-primary font-black text-xl font-outfit">{filteredTires.length} neumáticos</span>
+                  <span className="text-[10px] font-black text-white/30 uppercase tracking-widest italic">{t.catalog.matches}</span>
+                  <span className="text-primary font-black text-xl font-outfit">{filteredTires.length} {t.catalog.tires}</span>
                 </div>
                 <div className="flex gap-4">
                   {hasActiveFilters && (
-                    <button 
+                    <button
                       onClick={clearFilters}
                       className="px-8 h-14 rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 font-black text-xs uppercase tracking-widest transition-all italic"
                     >
-                      Limpiar
+                      {t.catalog.clear}
                     </button>
                   )}
-                  <button 
+                  <button
                     onClick={() => setIsSidebarOpen(false)}
                     className="px-10 h-14 rounded-2xl bg-primary text-black font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-primary/20 italic"
                   >
-                    Mostrar resultados
+                    {t.catalog.showResults}
                   </button>
                 </div>
               </div>
@@ -211,7 +211,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
             <div className="flex flex-wrap items-center gap-4 bg-white/[0.03] p-6 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-xl">
               <div className="flex items-center gap-2 mr-2 border-r border-white/10 pr-6">
                 <span className="material-symbols-outlined text-primary text-2xl">filter_alt</span>
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.25em] italic">Activos</span>
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.25em] italic">{t.catalog.active}</span>
               </div>
               {filters.search && (
                 <FilterChip label={`"${filters.search}"`} onRemove={() => removeFilter('search', '')} />
@@ -221,18 +221,18 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
               {filters.profiles.map(v => <FilterChip key={v} label={`${v}%`} onRemove={() => removeFilter('profiles', v)} />)}
               {filters.diameters.map(v => <FilterChip key={v} label={`R${v}`} onRemove={() => removeFilter('diameters', v)} />)}
               
-              <button 
+              <button
                 onClick={clearFilters}
                 className="text-[10px] font-black text-white/30 hover:text-primary transition-colors ml-auto uppercase tracking-[0.2em] border-b border-transparent hover:border-primary pb-1 italic"
               >
-                Borrar todo
+                {t.catalog.clearAll}
               </button>
             </div>
           )}
 
           <div className="flex justify-between items-center px-2">
             <p className="text-white/40 text-lg font-medium">
-              Mostrando <span className="text-primary font-black text-lg ml-1 not-italic font-outfit">{filteredTires.length}</span> neumáticos seleccionados
+              {t.catalog.showing} <span className="text-primary font-black text-lg ml-1 not-italic font-outfit">{filteredTires.length}</span> {t.catalog.selectedTires}
             </p>
           </div>
 
@@ -253,7 +253,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                     />
                     {tire.status === 'low-stock' && (
                       <div className="absolute top-6 left-6 bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg italic font-outfit">
-                        Stock Bajo
+                        {t.catalog.lowStock}
                       </div>
                     )}
                   </div>
@@ -267,7 +267,7 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                     </div>
                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
                       <div className="flex flex-col">
-                        <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest italic">Precio</span>
+                        <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest italic">{t.catalog.price}</span>
                         <span className="text-white font-black text-2xl font-outfit tracking-tighter">${tire.price.toLocaleString('es-CL')}</span>
                       </div>
                       <div className="size-12 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-black flex items-center justify-center transition-all duration-300 shadow-sm">
@@ -284,10 +284,10 @@ const Catalog: React.FC<CatalogProps> = ({ tires, onProductClick }) => {
                 <span className="material-symbols-outlined text-6xl text-white/10">search_off</span>
               </div>
               <div className="space-y-2">
-                <p className="text-white/60 text-2xl font-serif font-bold italic">Sin resultados precisos</p>
-                <p className="text-white/30 text-lg max-w-sm mx-auto">No encontramos neumáticos con estas especificaciones exactas.</p>
+                <p className="text-white/60 text-2xl font-serif font-bold italic">{t.catalog.noResultsPrecise}</p>
+                <p className="text-white/30 text-lg max-w-sm mx-auto">{t.catalog.noResultsDesc}</p>
               </div>
-              <button onClick={clearFilters} className="bg-primary/10 text-primary px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-black transition-all italic">Restablecer búsqueda</button>
+              <button onClick={clearFilters} className="bg-primary/10 text-primary px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-black transition-all italic">{t.catalog.resetSearch}</button>
             </div>
           )}
         </div>
