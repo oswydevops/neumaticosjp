@@ -37,9 +37,9 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
       >
         <button 
           onClick={handleCloseRequest}
-          className="absolute top-4 right-4 md:top-6 md:right-6 lg:top-8 lg:right-8 z-[110] p-2 md:p-3 lg:p-4 bg-white/10 hover:bg-primary hover:text-black text-white rounded-full transition-all duration-300 shadow-2xl"
+          className="hidden md:block absolute top-6 right-6 lg:top-8 lg:right-8 z-[110] p-3 lg:p-4 bg-white/10 hover:bg-primary hover:text-black text-white rounded-full transition-all duration-300 shadow-2xl"
         >
-          <span className="material-symbols-outlined text-xl md:text-2xl">close</span>
+          <span className="material-symbols-outlined text-2xl">close</span>
         </button>
 
         {/* Left: Gallery */}
@@ -100,7 +100,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
           </div>
 
           <div className="mt-auto space-y-10">
-            <div className="flex items-end justify-between">
+            <div className="flex items-end justify-between gap-3 sm:gap-4">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-3">
                   <span className="text-white/20 text-[10px] font-black uppercase tracking-[0.3em]">{t.productModal.priceLabel}</span>
@@ -116,10 +116,17 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
                     </span>
                   )}
                 </div>
-                <p className="text-5xl font-black text-white font-outfit tracking-tighter">
+                <p className="text-4xl sm:text-5xl font-black text-white font-outfit tracking-tighter">
                   ${tire.price.toLocaleString('es-CL')}
                 </p>
               </div>
+              {/* Botón cerrar en móviles y tablets */}
+              <button 
+                onClick={handleCloseRequest}
+                className="md:hidden p-2 sm:p-3 bg-white/10 hover:bg-primary hover:text-black text-white rounded-full transition-all duration-300 shadow-2xl flex-shrink-0 h-fit"
+              >
+                <span className="material-symbols-outlined text-lg sm:text-xl">close</span>
+              </button>
             </div>  
           </div>
         </div>

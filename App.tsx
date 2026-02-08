@@ -15,7 +15,20 @@ import { LanguageProvider } from './LanguageContext';
 
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>(() => {
+    // Recuperar página del localStorage si existe, pero respetando hash en URL
+    if (typeof window !== 'undefined') {
+      // Primero verificar si hay hash en la URL
+      const hashPage = window.location.hash.replace('#', '') as Page;
+      if (hashPage && ['home', 'catalog', 'about', 'contact', 'admin'].includes(hashPage)) {
+        return hashPage;
+      }
+      // Si no hay hash, usar localStorage
+      const savedPage = localStorage.getItem('currentPage') as Page;
+      return savedPage && ['home', 'catalog', 'about', 'contact', 'admin'].includes(savedPage) ? savedPage : 'home';
+    }
+    return 'home';
+  });
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
   const [isAdminLoginView, setIsAdminLoginView] = useState(false);
 
@@ -37,17 +50,35 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as Page;
-      if (['home', 'catalog', 'about', 'contact', 'admin'].includes(hash)) {
+      const validPages: Page[] = ['home', 'catalog', 'about', 'contact', 'admin'];
+      if (hash && validPages.includes(hash)) {
         setCurrentPage(hash);
+        localStorage.setItem('currentPage', hash);
+      } else if (!hash) {
+        // Si el hash está vacío, ir a home
+        setCurrentPage('home');
+        localStorage.setItem('currentPage', 'home');
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    // Verificar hash inicial
+    // Manejar la carga inicial del hash
     handleHashChange();
+    
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  // Guardar página actual en localStorage cuando cambia desde dentro de la app
+  // (No duplicar lo que el listener de hash ya hace)
+  useEffect(() => {
+    // Solo guardar y actualizar hash si cambió programáticamente (no por hash change)
+    const currentHash = window.location.hash.replace('#', '');
+    if (currentHash !== currentPage) {
+      localStorage.setItem('currentPage', currentPage);
+      window.location.hash = currentPage;
+    }
+  }, [currentPage]);
 
   // Simple scroll to top on page change
   useEffect(() => {

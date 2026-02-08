@@ -14,12 +14,31 @@ interface AdminDashboardProps {
 const SPEED_RATINGS = ['Q', 'R', 'S', 'T', 'H', 'V', 'W', 'Y', '(Y)'];
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsAdminLoginView }) => {
-  const [adminStep, setAdminStep] = useState<'welcome' | 'login' | 'dashboard'>('welcome');
+  const [adminStep, setAdminStep] = useState<'welcome' | 'login' | 'dashboard'>(() => {
+    // Recuperar estado de admin del localStorage si existe y es válido
+    if (typeof window !== 'undefined') {
+      try {
+        const savedStep = localStorage.getItem('adminStep');
+        // Solo si el estado es 'dashboard' (usuario autenticado), recupera de localStorage
+        // De lo contrario, siempre mostrar 'welcome' en primer acceso
+        if (savedStep === 'dashboard') {
+          return 'dashboard';
+        }
+      } catch (e) {
+        console.error('Error reading localStorage:', e);
+      }
+    }
+    return 'welcome';
+  });
   const { t, language } = useLanguage();
 
-  // INICIO DE MODIFICACIÓN: Efecto para sincronizar la visibilidad del Navbar
+  // INICIO DE MODIFICACIÓN: Efecto para sincronizar la visibilidad del Navbar y guardar en localStorage
   useEffect(() => {
     setIsAdminLoginView(adminStep === 'login');
+    // Guardar el estado de admin en localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('adminStep', adminStep);
+    }
     return () => setIsAdminLoginView(false);
   }, [adminStep, setIsAdminLoginView]);
   
@@ -82,6 +101,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
     setImagePreview(null);
     setImageUrlInput('');
     setEditingId(null);
+  };
+
+  const handleCloseSession = () => {
+    setAdminStep('welcome');
+    setUsername('');
+    setPassword('');
+    // El efecto automáticamente guardará 'welcome' en localStorage
   };
 
   const openAddModal = () => {
@@ -308,15 +334,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
             </div>
             <p className="text-pale-sky text-base md:text-lg italic">{t.admin.greeting}</p>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-4">
             <button 
-              onClick={() => { setAdminStep('welcome'); setUsername(''); setPassword(''); }}
-              className="w-full sm:w-auto h-14 md:h-16 px-6 md:px-8 rounded-2xl border border-white/10 text-white/40 hover:text-white font-bold text-xs uppercase tracking-widest italic transition-all"
+              onClick={handleCloseSession}
+              className="w-full sm:w-auto h-12 md:h-16 px-4 md:px-8 rounded-lg md:rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 font-bold text-xs md:text-sm uppercase tracking-widest italic transition-all"
             >
               {t.admin.closeSession}
             </button>
-            <button onClick={openAddModal} className="w-full sm:w-auto flex items-center justify-center rounded-2xl h-14 md:h-16 px-6 md:px-10 bg-primary text-black gap-3 md:gap-4 text-xs md:text-sm font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all italic">
-              <span className="material-symbols-outlined text-lg md:text-xl">add_circle</span> <span className="hidden sm:inline">{t.admin.newTireButton}</span>
+            <button onClick={openAddModal} className="w-full sm:w-auto flex items-center justify-center rounded-lg md:rounded-2xl h-12 md:h-16 px-4 md:px-10 bg-primary text-black gap-2 md:gap-4 text-xs md:text-sm font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all italic">
+              <span className="material-symbols-outlined text-base md:text-xl">add_circle</span> <span className="hidden sm:inline text-xs md:text-sm">{t.admin.newTireButton}</span>
             </button>
           </div>
         </div>
@@ -343,9 +369,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
                     <div className="aspect-video rounded-2xl md:rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/[0.02] flex items-center justify-center overflow-hidden">
                       {imagePreview ? <img src={imagePreview} className="w-full h-full object-contain p-6" alt="Preview" /> : <span className="material-symbols-outlined text-7xl opacity-10">image_search</span>}
                     </div>
-                    <div className="space-y-4">
-                      <input type="url" value={imageUrlInput} onChange={handleUrlChange} placeholder={t.admin.imageUrl} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white text-sm outline-none focus:border-primary font-outfit italic" />
-                      <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full h-12 md:h-14 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white hover:bg-white/5 transition-all">{t.admin.uploadFile}</button>
+                    <div className="space-y-2 md:space-y-3">
+                      <input type="url" value={imageUrlInput} onChange={handleUrlChange} placeholder={t.admin.imageUrl} className="w-full bg-white/5 border border-white/10 h-11 md:h-14 rounded-xl md:rounded-2xl px-3 md:px-6 text-white text-xs md:text-sm outline-none focus:border-primary font-outfit italic" />
+                      <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full h-11 md:h-14 border border-white/10 rounded-xl md:rounded-2xl text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">{t.admin.uploadFile}</button>
                       <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
                     </div>
                   </div>
@@ -353,35 +379,35 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
                   <div className="space-y-6 md:space-y-8">
                     <label className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-3 md:pl-4 italic">{t.admin.commercialSpecs}</label>
                     
-                    <div className="grid grid-cols-2 gap-4 md:gap-6">
+                    <div className="grid grid-cols-2 gap-3 md:gap-6">
                       <div className="space-y-2 md:space-y-3">
-                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.brandLabel}</label>
-                        <select name="brand" value={formData.brand} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white focus:border-primary font-outfit text-sm">
+                        <label className="text-[8px] md:text-[10px] font-bold uppercase text-white/40 pl-2 whitespace-nowrap">{t.admin.brandLabel}</label>
+                        <select name="brand" value={formData.brand} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-14 rounded-lg md:rounded-2xl px-3 md:px-6 text-white focus:border-primary font-outfit text-xs md:text-sm">
                           {BRANDS.map(b => <option key={b} value={b} className="bg-surface-dark">{b}</option>)}
                         </select>
                       </div>
                       <div className="space-y-2 md:space-y-3">
-                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.modelLabel}</label>
-                        <input required name="model" value={formData.model} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white focus:border-primary font-outfit text-sm" />
+                        <label className="text-[8px] md:text-[10px] font-bold uppercase text-white/40 pl-2 whitespace-nowrap">{t.admin.modelLabel}</label>
+                        <input required name="model" value={formData.model} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-14 rounded-lg md:rounded-2xl px-3 md:px-6 text-white focus:border-primary font-outfit text-xs md:text-sm" />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 md:gap-6">
+                    <div className="grid grid-cols-2 gap-3 md:gap-6">
                       <div className="space-y-2 md:space-y-3">
-                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.priceLabel}</label>
-                        <input required type="number" step="0.01" name="price" value={formData.price} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-primary font-black focus:border-primary font-outfit text-sm" />
+                        <label className="text-[8px] md:text-[10px] font-bold uppercase text-white/40 pl-2 whitespace-nowrap">{t.admin.priceLabel}</label>
+                        <input required type="number" step="0.01" name="price" value={formData.price} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-14 rounded-lg md:rounded-2xl px-3 md:px-6 text-primary font-black focus:border-primary font-outfit text-xs md:text-sm" />
                       </div>
                       <div className="space-y-2 md:space-y-3">
-                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.stockLabel}</label>
-                        <input required type="number" name="stock" value={formData.stock} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white font-black focus:border-primary font-outfit text-sm" />
+                        <label className="text-[8px] md:text-[10px] font-bold uppercase text-white/40 pl-2 whitespace-nowrap">{t.admin.stockLabel}</label>
+                        <input required type="number" name="stock" value={formData.stock} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-14 rounded-lg md:rounded-2xl px-3 md:px-6 text-white font-black focus:border-primary font-outfit text-xs md:text-sm" />
                       </div>
                     </div>
 
                     <div className="space-y-2 md:space-y-3">
                       <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">weight</span> {t.admin.maxWeight}
+                        <span className="material-symbols-outlined text-sm md:text-base">weight</span> <span className="whitespace-nowrap">{t.admin.maxWeight}</span>
                       </label>
-                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-16 rounded-xl md:rounded-2xl px-4 md:px-6 text-lg md:text-2xl text-white font-black focus:border-primary font-outfit"/>
+                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-16 rounded-xl md:rounded-2xl px-3 md:px-6 text-lg md:text-2xl text-white font-black focus:border-primary font-outfit"/>
                     </div>
                   </div>
                 </div>
@@ -412,8 +438,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
               </form>
 
               <div className="p-6 md:p-8 border-t border-white/5 bg-white/[0.02] flex flex-col sm:flex-row gap-4 md:gap-6">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 h-12 md:h-14 rounded-xl md:rounded-2xl border border-white/10 text-white/40 hover:text-white font-black text-xs uppercase italic transition-all">{t.admin.discardButton}</button>
-                <button onClick={handleSubmit} className="flex-1 sm:flex-[2] h-12 md:h-14 rounded-xl md:rounded-2xl bg-primary text-black font-black text-xs uppercase italic shadow-lg shadow-primary/20">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 h-14 md:h-16 rounded-xl md:rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 font-black text-sm md:text-base uppercase italic transition-all">{t.admin.discardButton}</button>
+                <button onClick={handleSubmit} className="flex-1 sm:flex-[2] h-14 md:h-16 rounded-xl md:rounded-2xl bg-primary text-black font-black text-sm md:text-base uppercase italic shadow-lg shadow-primary/20 hover:brightness-110 transition-all">
                   {modalMode === 'edit' ? t.admin.saveChanges : t.admin.registerProduct}
                 </button>
               </div>
@@ -439,34 +465,34 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
           <table className="w-full text-left border-collapse min-w-full">
             <thead>
               <tr className="bg-white/5 border-b border-white/10">
-                <th className="px-4 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.productColumn}</th>
-                <th className="px-3 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.priceColumn}</th>
-                <th className="px-3 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.stockColumn}</th>
-                <th className="px-4 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic text-right">{t.admin.actionsColumn}</th>
+                <th className="px-4 md:px-10 py-4 md:py-8 text-primary text-[7px] md:text-[10px] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] italic text-left">{t.admin.productColumn}</th>
+                <th className="px-3 md:px-10 py-4 md:py-8 text-primary text-[7px] md:text-[10px] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] italic text-right">{t.admin.priceColumn}</th>
+                <th className="px-3 md:px-10 py-4 md:py-8 text-primary text-[7px] md:text-[10px] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] italic text-center">{t.admin.stockColumn}</th>
+                <th className="px-4 md:px-10 py-4 md:py-8 text-primary text-[7px] md:text-[10px] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] italic text-right">{t.admin.actionsColumn}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {tires.map(tire => (
                 <tr key={tire.id} className={`hover:bg-white/[0.03] transition-all group ${tire.status === 'inactive' ? 'opacity-30' : ''}`}>
                   <td className="px-4 md:px-10 py-6 md:py-8 flex items-center gap-3 md:gap-6">
-                    <div className="h-12 md:h-16 w-12 md:w-16 bg-[#fcfcfc] rounded-lg md:rounded-2xl p-2 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 flex-shrink-0">
+                    <div className="h-11 md:h-16 w-11 md:w-16 bg-[#fcfcfc] rounded-lg md:rounded-2xl p-1.5 md:p-2 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 flex-shrink-0">
                       <img src={tire.image} className="max-w-full max-h-full object-contain" alt={tire.model} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white text-sm md:text-xl font-bold font-serif italic mb-0 md:mb-1 truncate">{tire.brand}</p>
+                      <p className="text-white text-xs md:text-xl font-bold font-serif italic mb-0 md:mb-1 truncate leading-tight">{tire.brand}</p>
                       <p className="text-white/30 text-[7px] md:text-[9px] uppercase tracking-widest truncate">{tire.model}</p>
                     </div>
                   </td>
-                  <td className="px-3 md:px-10 py-6 md:py-8 font-outfit text-white font-black text-xs md:text-xl tracking-tighter whitespace-nowrap">
+                  <td className="px-3 md:px-10 py-6 md:py-8 font-outfit text-white font-black text-xs md:text-xl tracking-tighter whitespace-nowrap text-right">
                     {cadFormatter.format(tire.price)}
                   </td>
-                  <td className="px-3 md:px-10 py-6 md:py-8">
-                    <div className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-full text-[7px] md:text-xs font-black uppercase whitespace-nowrap ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10' : 'text-white/40 bg-white/5'}`}>{tire.stock} {t.admin.units}</div>
+                  <td className="px-3 md:px-10 py-6 md:py-8 text-center">
+                    <div className={`px-2 md:px-4 py-1 md:py-2 rounded-md md:rounded-full text-[7px] md:text-xs font-black uppercase whitespace-nowrap inline-block ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10 border border-amber-500/20' : 'text-white/40 bg-white/5 border border-white/10'}`}>{tire.stock} {t.admin.units}</div>
                   </td>
-                  <td className="px-4 md:px-10 py-6 md:py-8 text-right flex items-center justify-end gap-3 md:gap-6">
-                    <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125" title={t.admin.editTire}><span className="material-symbols-outlined text-lg md:text-2xl">edit</span></button>
-                    <button onClick={() => toggleStatus(tire)} className={`text-[7px] md:text-[9px] font-black px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-lg border uppercase whitespace-nowrap ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20 hover:border-green-500/40' : 'text-amber-500 border-amber-500/20 hover:border-amber-500/40'}`} title={tire.status === 'inactive' ? t.admin.show : t.admin.hide}>{tire.status === 'inactive' ? t.admin.show : t.admin.hide}</button>
-                    <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all" title={t.admin.deleteProduct}><span className="material-symbols-outlined text-lg md:text-2xl">delete</span></button>
+                  <td className="px-3 md:px-10 py-6 md:py-8 text-right flex items-center justify-end gap-2 md:gap-4">
+                    <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125 p-1.5 md:p-2 rounded-lg hover:bg-white/5" title={t.admin.editTire}><span className="material-symbols-outlined text-base md:text-2xl">edit</span></button>
+                    <button onClick={() => toggleStatus(tire)} className={`text-[7px] md:text-[9px] font-black px-1.5 md:px-4 py-1 md:py-2 rounded-md md:rounded-lg border uppercase whitespace-nowrap transition-all ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20 hover:border-green-500/40 hover:bg-green-500/5' : 'text-amber-500 border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/5'}`} title={tire.status === 'inactive' ? t.admin.show : t.admin.hide}>{tire.status === 'inactive' ? t.admin.show : t.admin.hide}</button>
+                    <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all p-1.5 md:p-2 rounded-lg hover:bg-red-500/5" title={t.admin.deleteProduct}><span className="material-symbols-outlined text-base md:text-2xl">delete</span></button>
                   </td>
                 </tr>
               ))}
