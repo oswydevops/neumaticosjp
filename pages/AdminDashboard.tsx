@@ -220,15 +220,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
           <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '8s' }}></div>
         </div>
 
-        <div className="w-full max-w-2xl bg-surface-dark/40 backdrop-blur-2xl border border-white/10 rounded-[3.5rem] p-10 md:p-16 shadow-2xl space-y-10 text-center relative z-10 animate-in fade-in zoom-in duration-700">
-          <div className="space-y-6">
-            <div className="size-20 bg-primary/10 rounded-2xl flex items-center justify-center animate-pulse text-primary mx-auto mb-6">
-              <span className="material-symbols-outlined text-5xl">admin_panel_settings</span>
+        <div className="w-full max-w-2xl bg-surface-dark/40 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-[3.5rem] p-8 md:p-16 shadow-2xl space-y-8 md:space-y-10 text-center relative z-10 animate-in fade-in zoom-in duration-700">
+          <div className="space-y-4 md:space-y-6">
+            <div className="size-16 md:size-20 bg-primary/10 rounded-2xl flex items-center justify-center animate-pulse text-primary mx-auto mb-4 md:mb-6">
+              <span className="material-symbols-outlined text-4xl md:text-5xl">admin_panel_settings</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-white italic font-serif leading-tight">
+            <h1 className="text-3xl md:text-6xl font-black text-white italic font-serif leading-tight">
               {t.admin.welcomeBanner} <br /><span className="text-primary">{t.admin.welcomeName}</span>
             </h1>
-            <p className="text-pale-sky text-lg md:text-xl font-light italic max-w-md mx-auto leading-relaxed">
+            <p className="text-pale-sky text-base md:text-xl font-light italic max-w-md mx-auto leading-relaxed">
               {t.admin.welcomeDescription}
             </p>
           </div>
@@ -236,17 +236,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
           <div className="pt-4">
             <button 
               onClick={() => setAdminStep('login')}
-              className="group relative inline-flex items-center justify-center min-w-[260px] h-16 bg-primary text-black rounded-2xl text-lg font-black uppercase tracking-widest hover:scale-105 transition-all italic overflow-hidden"
+              className="group relative inline-flex items-center justify-center min-w-[240px] md:min-w-[260px] h-14 md:h-16 bg-primary text-black rounded-xl md:rounded-2xl text-sm md:text-lg font-black uppercase tracking-widest hover:scale-105 transition-all italic overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <span className="relative z-10 flex items-center gap-4">
+              <span className="relative z-10 flex items-center gap-3 md:gap-4">
                 {t.admin.accessPanel}
-                <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">login</span>
+                <span className="material-symbols-outlined text-base md:text-xl group-hover:translate-x-2 transition-transform">login</span>
               </span>
             </button>
           </div>
 
-          <p className="text-white/20 text-[9px] font-black uppercase tracking-[0.4em] pt-8">
+          <p className="text-white/20 text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] pt-6 md:pt-8">
             {t.admin.systemVersion}
           </p>
         </div>
@@ -257,37 +257,37 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
   // PANTALLA 2: LOGIN (RESTRICTURADA)
   if (adminStep === 'login') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background-dark relative pt-24 pb-12">
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-background-dark relative pt-24 pb-12">
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
-        <div className="w-full max-w-md bg-surface-dark border border-white/10 rounded-[2.5rem] p-10 md:p-12 shadow-2xl space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500 relative z-10">
-          <div className="text-center space-y-3">
-            <span className="material-symbols-outlined text-primary text-5xl mb-2">lock</span>
-            <h2 className="text-3xl font-black text-white italic font-serif">{t.admin.authentication}</h2>
-            <p className="text-white/40 text-[10px] font-black uppercase tracking-widest">{t.admin.enterCredentials}</p>
+        <div className="w-full max-w-md bg-surface-dark border border-white/10 rounded-2xl md:rounded-[2.5rem] p-8 md:p-12 shadow-2xl space-y-8 md:space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500 relative z-10">
+          <div className="text-center space-y-2 md:space-y-3">
+            <span className="material-symbols-outlined text-primary text-4xl md:text-5xl mb-2 block">lock</span>
+            <h2 className="text-2xl md:text-3xl font-black text-white italic font-serif">{t.admin.authentication}</h2>
+            <p className="text-white/40 text-[9px] md:text-[10px] font-black uppercase tracking-widest">{t.admin.enterCredentials}</p>
           </div>
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-5 md:space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-primary uppercase tracking-widest pl-2 italic">{t.admin.userLabel}</label>
-              <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-primary font-outfit" placeholder={t.admin.userPlaceholder} />
+              <label className="text-[9px] md:text-[10px] font-black text-primary uppercase tracking-widest pl-2 italic">{t.admin.userLabel}</label>
+              <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full h-12 md:h-14 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-4 md:px-6 text-white text-sm outline-none focus:border-primary font-outfit" placeholder={t.admin.userPlaceholder} />
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-primary uppercase tracking-widest pl-2 italic">{t.admin.passLabel}</label>
-              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-primary font-outfit" placeholder={t.admin.passPlaceholder} />
+              <label className="text-[9px] md:text-[10px] font-black text-primary uppercase tracking-widest pl-2 italic">{t.admin.passLabel}</label>
+              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full h-12 md:h-14 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-4 md:px-6 text-white text-sm outline-none focus:border-primary font-outfit" placeholder={t.admin.passPlaceholder} />
             </div>
             {loginError && (
-              <div className="bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
-                <p className="text-red-500 text-[10px] text-center font-bold italic">{t.admin.incorrectCredentials}</p>
+              <div className="bg-red-500/10 border border-red-500/20 p-3 rounded-lg md:rounded-xl">
+                <p className="text-red-500 text-[9px] md:text-[10px] text-center font-bold italic">{t.admin.incorrectCredentials}</p>
               </div>
             )}
-            <button type="submit" className="w-full h-14 bg-primary text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all italic shadow-lg">
+            <button type="submit" className="w-full h-12 md:h-14 bg-primary text-black rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest hover:brightness-110 transition-all italic shadow-lg">
               {t.admin.loginButton}
             </button>
             <button 
                 type="button"
                 onClick={() => setAdminStep('welcome')}
-                className="w-full h-14 rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest italic"
+                className="w-full h-12 md:h-14 rounded-xl md:rounded-2xl border border-white/10 text-white/40 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-3 font-black text-[9px] md:text-[10px] uppercase tracking-widest italic"
               >
-                <span className="material-symbols-outlined text-lg">arrow_back</span>
+                <span className="material-symbols-outlined text-base md:text-lg">arrow_back</span>
                 {t.admin.goBack}
               </button>
           </form>
@@ -298,112 +298,112 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
 
   // PANTALLA 3: DASHBOARD
   return (
-    <div className="pt-28 pb-20 px-6 lg:px-40 animate-in fade-in duration-500">
-      <div className="max-w-[1440px] mx-auto space-y-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 border-b border-white/5 pb-10">
-          <div className="space-y-3">
-            <div className="flex items-center gap-4">
-              <h1 className="text-5xl font-black text-white tracking-tight font-serif">{t.admin.inventoryManagement}</h1>
-              <span className="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase italic">{t.admin.adminMode}</span>
+    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-40 animate-in fade-in duration-500">
+      <div className="max-w-[1440px] mx-auto space-y-8 md:space-y-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 border-b border-white/5 pb-8 md:pb-10">
+          <div className="space-y-2 md:space-y-3 text-center md:text-left">
+            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+              <h1 className="text-4xl sm:text-5xl md:text-5xl font-black text-white tracking-tight font-serif">{t.admin.inventoryManagement}</h1>
+              <span className="bg-primary/10 text-primary text-[9px] md:text-[10px] font-black px-3 py-1 rounded-full uppercase italic inline-block md:inline-block w-fit">{t.admin.adminMode}</span>
             </div>
-            <p className="text-pale-sky text-lg italic">{t.admin.greeting}</p>
+            <p className="text-pale-sky text-base md:text-lg italic">{t.admin.greeting}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
             <button 
               onClick={() => { setAdminStep('welcome'); setUsername(''); setPassword(''); }}
-              className="h-16 px-8 rounded-[2rem] border border-white/10 text-white/40 hover:text-white font-bold text-xs uppercase tracking-widest italic transition-all"
+              className="w-full sm:w-auto h-14 md:h-16 px-6 md:px-8 rounded-2xl border border-white/10 text-white/40 hover:text-white font-bold text-xs uppercase tracking-widest italic transition-all"
             >
               {t.admin.closeSession}
             </button>
-            <button onClick={openAddModal} className="flex items-center justify-center rounded-[2rem] h-16 px-10 bg-primary text-black gap-4 text-sm font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all italic">
-              <span className="material-symbols-outlined">add_circle</span> {t.admin.newTireButton}
+            <button onClick={openAddModal} className="w-full sm:w-auto flex items-center justify-center rounded-2xl h-14 md:h-16 px-6 md:px-10 bg-primary text-black gap-3 md:gap-4 text-xs md:text-sm font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all italic">
+              <span className="material-symbols-outlined text-lg md:text-xl">add_circle</span> <span className="hidden sm:inline">{t.admin.newTireButton}</span>
             </button>
           </div>
         </div>
 
         {isModalOpen && (
-          <div className="fixed top-[30px] inset-x-0 bottom-0 z-40 flex  items-center justify-center p-4 md:p-10 bg-surface-dark/20 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-surface-dark w-full max-w-4xl rounded-[3rem] border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.6)] flex flex-col max-h-[85vh] overflow-hidden">
-              <div className="p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                <div className="flex items-center gap-5">
-                  <div className="size-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined text-3xl">{modalMode === 'edit' ? 'edit_square' : 'add_box'}</span>
+          <div className="fixed top-0 inset-x-0 bottom-0 z-40 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-surface-dark/20 backdrop-blur-md animate-in fade-in duration-300">
+            <div className="bg-surface-dark w-full max-w-2xl md:max-w-4xl rounded-2xl md:rounded-[3rem] border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.6)] flex flex-col max-h-[90vh] md:max-h-[85vh] overflow-hidden">
+              <div className="p-6 md:p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                <div className="flex items-center gap-4 md:gap-5 flex-1 min-w-0">
+                  <div className="size-12 md:size-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <span className="material-symbols-outlined text-2xl md:text-3xl">{modalMode === 'edit' ? 'edit_square' : 'add_box'}</span>
                   </div>
-                  <h2 className="text-2xl font-black text-white italic font-serif">{modalMode === 'edit' ? t.admin.editTire : t.admin.addTire}</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-white italic font-serif min-w-0">{modalMode === 'edit' ? t.admin.editTire : t.admin.addTire}</h2>
                 </div>
-                <button onClick={() => setIsModalOpen(false)} className="size-12 rounded-full hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all">
-                  <span className="material-symbols-outlined text-3xl">close</span>
+                <button onClick={() => setIsModalOpen(false)} className="size-10 md:size-12 rounded-full hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all flex-shrink-0">
+                  <span className="material-symbols-outlined text-2xl md:text-3xl">close</span>
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-10 space-y-12 custom-scrollbar">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div className="space-y-8">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-4 italic">{t.admin.visualIdentity}</label>
-                    <div className="aspect-video rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/[0.02] flex items-center justify-center overflow-hidden">
+              <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 md:space-y-12 custom-scrollbar">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                  <div className="space-y-6 md:space-y-8">
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-3 md:pl-4 italic">{t.admin.visualIdentity}</label>
+                    <div className="aspect-video rounded-2xl md:rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/[0.02] flex items-center justify-center overflow-hidden">
                       {imagePreview ? <img src={imagePreview} className="w-full h-full object-contain p-6" alt="Preview" /> : <span className="material-symbols-outlined text-7xl opacity-10">image_search</span>}
                     </div>
                     <div className="space-y-4">
-                      <input type="url" value={imageUrlInput} onChange={handleUrlChange} placeholder={t.admin.imageUrl} className="w-full bg-white/5 border border-white/10 h-14 rounded-2xl px-6 text-white text-sm outline-none focus:border-primary font-outfit italic" />
-                      <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full h-14 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white hover:bg-white/5 transition-all">{t.admin.uploadFile}</button>
+                      <input type="url" value={imageUrlInput} onChange={handleUrlChange} placeholder={t.admin.imageUrl} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white text-sm outline-none focus:border-primary font-outfit italic" />
+                      <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full h-12 md:h-14 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white hover:bg-white/5 transition-all">{t.admin.uploadFile}</button>
                       <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
                     </div>
                   </div>
 
-                  <div className="space-y-8">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-4 italic">{t.admin.commercialSpecs}</label>
+                  <div className="space-y-6 md:space-y-8">
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-3 md:pl-4 italic">{t.admin.commercialSpecs}</label>
                     
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.brandLabel}</label>
-                        <select name="brand" value={formData.brand} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-14 rounded-2xl px-6 text-white focus:border-primary font-outfit">
+                    <div className="grid grid-cols-2 gap-4 md:gap-6">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.brandLabel}</label>
+                        <select name="brand" value={formData.brand} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white focus:border-primary font-outfit text-sm">
                           {BRANDS.map(b => <option key={b} value={b} className="bg-surface-dark">{b}</option>)}
                         </select>
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.modelLabel}</label>
-                        <input required name="model" value={formData.model} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-14 rounded-2xl px-6 text-white focus:border-primary font-outfit" />
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.modelLabel}</label>
+                        <input required name="model" value={formData.model} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white focus:border-primary font-outfit text-sm" />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.priceLabel}</label>
-                        <input required type="number" step="0.01" name="price" value={formData.price} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-14 rounded-2xl px-6 text-primary font-black focus:border-primary font-outfit" />
+                    <div className="grid grid-cols-2 gap-4 md:gap-6">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.priceLabel}</label>
+                        <input required type="number" step="0.01" name="price" value={formData.price} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-primary font-black focus:border-primary font-outfit text-sm" />
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.stockLabel}</label>
-                        <input required type="number" name="stock" value={formData.stock} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-14 rounded-2xl px-6 text-white font-black focus:border-primary font-outfit" />
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2">{t.admin.stockLabel}</label>
+                        <input required type="number" name="stock" value={formData.stock} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 text-white font-black focus:border-primary font-outfit text-sm" />
                       </div>
                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-bold uppercase text-white/40 pl-2 flex items-center gap-2">
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[9px] md:text-[10px] font-bold uppercase text-white/40 pl-2 flex items-center gap-2">
                         <span className="material-symbols-outlined text-base">weight</span> {t.admin.maxWeight}
                       </label>
-                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-16 rounded-2xl px-6 text-2xl text-white font-black focus:border-primary font-outfit"/>
+                      <input required type="number" name="maxWeight" value={formData.maxWeight} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 md:h-16 rounded-xl md:rounded-2xl px-4 md:px-6 text-lg md:text-2xl text-white font-black focus:border-primary font-outfit"/>
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-8">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-4 italic">{t.admin.techSpecs}</label>
-                  <div className="grid grid-cols-4 gap-4">
+                <div className="space-y-6 md:space-y-8">
+                  <label className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary block border-l-2 border-primary/30 pl-3 md:pl-4 italic">{t.admin.techSpecs}</label>
+                  <div className="grid grid-cols-4 gap-2 md:gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">{t.admin.width}</label>
-                      <input type="number" name="width" value={formData.width} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-4 text-white font-bold" />
+                      <label className="text-[8px] md:text-[10px] text-white/40 pl-1 md:pl-2 uppercase font-bold font-outfit">{t.admin.width}</label>
+                      <input type="number" name="width" value={formData.width} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-12 rounded-lg md:rounded-xl px-2 md:px-4 text-white font-bold text-sm" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">{t.admin.profile}</label>
-                      <input type="number" name="profile" value={formData.profile} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-4 text-white font-bold" />
+                      <label className="text-[8px] md:text-[10px] text-white/40 pl-1 md:pl-2 uppercase font-bold font-outfit">{t.admin.profile}</label>
+                      <input type="number" name="profile" value={formData.profile} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-12 rounded-lg md:rounded-xl px-2 md:px-4 text-white font-bold text-sm" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">{t.admin.diameter}</label>
-                      <input type="number" name="diameter" value={formData.diameter} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-4 text-white font-bold" />
+                      <label className="text-[8px] md:text-[10px] text-white/40 pl-1 md:pl-2 uppercase font-bold font-outfit">{t.admin.diameter}</label>
+                      <input type="number" name="diameter" value={formData.diameter} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-12 rounded-lg md:rounded-xl px-2 md:px-4 text-white font-bold text-sm" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] text-white/40 pl-1 uppercase font-bold">{t.admin.speedMax}</label>
-                      <select name="speedRating" value={formData.speedRating} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-2 text-white font-bold">
+                      <label className="text-[8px] md:text-[10px] text-white/40 pl-1 md:pl-2 uppercase font-bold font-outfit">{t.admin.speedMax}</label>
+                      <select name="speedRating" value={formData.speedRating} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 h-11 md:h-12 rounded-lg md:rounded-xl px-1 md:px-2 text-white font-bold text-sm">
                         {SPEED_RATINGS.map(r => <option key={r} value={r}>{r}</option>)}
                       </select>
                     </div>
@@ -411,9 +411,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
                 </div>
               </form>
 
-              <div className="p-8 border-t border-white/5 bg-white/[0.02] flex gap-6">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 h-14 rounded-2xl border border-white/10 text-white/40 hover:text-white font-black text-xs uppercase italic transition-all">{t.admin.discardButton}</button>
-                <button onClick={handleSubmit} className="flex-[2] h-14 rounded-2xl bg-primary text-black font-black text-xs uppercase italic shadow-lg shadow-primary/20">
+              <div className="p-6 md:p-8 border-t border-white/5 bg-white/[0.02] flex flex-col sm:flex-row gap-4 md:gap-6">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 h-12 md:h-14 rounded-xl md:rounded-2xl border border-white/10 text-white/40 hover:text-white font-black text-xs uppercase italic transition-all">{t.admin.discardButton}</button>
+                <button onClick={handleSubmit} className="flex-1 sm:flex-[2] h-12 md:h-14 rounded-xl md:rounded-2xl bg-primary text-black font-black text-xs uppercase italic shadow-lg shadow-primary/20">
                   {modalMode === 'edit' ? t.admin.saveChanges : t.admin.registerProduct}
                 </button>
               </div>
@@ -422,60 +422,60 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
         )}
 
         {isDeleteModalOpen && (
-          <div className="fixed top-[30px] inset-x-0 bottom-0 z-40 flex items-center justify-center p-4 bg-surface-dark/20 backdrop-blur-xl animate-in fade-in duration-300">
-            <div className="bg-surface-dark w-full max-w-md rounded-[3rem] border border-white/10 p-10 text-center space-y-8">
-              <span className="material-symbols-outlined text-red-500 text-6xl animate-pulse">delete_forever</span>
-              <h3 className="text-3xl font-black text-white italic font-serif">{t.admin.deleteProduct}</h3>
-              <p className="text-white/40 italic">{t.admin.deleteWarning}</p>
-              <div className="flex gap-4">
-                <button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 h-14 rounded-2xl bg-white/5 text-white/40 font-bold uppercase">{t.admin.cancelButton}</button>
-                <button onClick={handleDelete} className="flex-1 h-14 rounded-2xl bg-red-500 text-white font-black uppercase shadow-lg shadow-red-500/20">{t.admin.deleteButton}</button>
+          <div className="fixed top-0 inset-x-0 bottom-0 z-40 flex items-center justify-center p-4 sm:p-6 bg-surface-dark/20 backdrop-blur-xl animate-in fade-in duration-300">
+            <div className="bg-surface-dark w-full max-w-sm rounded-2xl md:rounded-[3rem] border border-white/10 p-8 md:p-10 text-center space-y-6 md:space-y-8">
+              <span className="material-symbols-outlined text-5xl md:text-6xl text-red-500 animate-pulse block">delete_forever</span>
+              <h3 className="text-2xl md:text-3xl font-black text-white italic font-serif">{t.admin.deleteProduct}</h3>
+              <p className="text-white/40 text-sm md:text-base italic">{t.admin.deleteWarning}</p>
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 h-12 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-white/40 hover:text-white font-bold text-xs md:text-sm uppercase transition-all">{t.admin.cancelButton}</button>
+                <button onClick={handleDelete} className="flex-1 h-12 md:h-14 rounded-xl md:rounded-2xl bg-red-500 text-white font-black text-xs md:text-sm uppercase shadow-lg shadow-red-500/20">{t.admin.deleteButton}</button>
               </div>
             </div>
           </div>
         )}
 
-        <div className="overflow-hidden rounded-[3rem] border border-white/10 bg-surface-dark/40 backdrop-blur-xl shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto rounded-2xl md:rounded-[3rem] border border-white/10 bg-surface-dark/40 backdrop-blur-xl shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <table className="w-full text-left border-collapse min-w-full">
             <thead>
               <tr className="bg-white/5 border-b border-white/10">
-                <th className="px-10 py-8 text-primary text-[10px] font-black uppercase tracking-[0.4em] italic">{t.admin.productColumn}</th>
-                <th className="px-10 py-8 text-primary text-[10px] font-black uppercase tracking-[0.4em] italic">{t.admin.priceColumn}</th>
-                <th className="px-10 py-8 text-primary text-[10px] font-black uppercase tracking-[0.4em] italic">{t.admin.stockColumn}</th>
-                <th className="px-10 py-8 text-primary text-[10px] font-black uppercase tracking-[0.4em] italic text-right">{t.admin.actionsColumn}</th>
+                <th className="px-4 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.productColumn}</th>
+                <th className="px-3 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.priceColumn}</th>
+                <th className="px-3 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic">{t.admin.stockColumn}</th>
+                <th className="px-4 md:px-10 py-6 md:py-8 text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] italic text-right">{t.admin.actionsColumn}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {tires.map(tire => (
                 <tr key={tire.id} className={`hover:bg-white/[0.03] transition-all group ${tire.status === 'inactive' ? 'opacity-30' : ''}`}>
-                  <td className="px-10 py-8 flex items-center gap-6">
-                    <div className="h-16 w-16 bg-[#fcfcfc] rounded-2xl p-2 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+                  <td className="px-4 md:px-10 py-6 md:py-8 flex items-center gap-3 md:gap-6">
+                    <div className="h-12 md:h-16 w-12 md:w-16 bg-[#fcfcfc] rounded-lg md:rounded-2xl p-2 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 flex-shrink-0">
                       <img src={tire.image} className="max-w-full max-h-full object-contain" alt={tire.model} />
                     </div>
-                    <div>
-                      <p className="text-white text-xl font-bold font-serif italic mb-1">{tire.brand}</p>
-                      <p className="text-white/30 text-[9px] uppercase tracking-widest">{tire.model}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-white text-sm md:text-xl font-bold font-serif italic mb-0 md:mb-1 truncate">{tire.brand}</p>
+                      <p className="text-white/30 text-[7px] md:text-[9px] uppercase tracking-widest truncate">{tire.model}</p>
                     </div>
                   </td>
-                  <td className="px-10 py-8 font-outfit text-white font-black text-xl tracking-tighter">
+                  <td className="px-3 md:px-10 py-6 md:py-8 font-outfit text-white font-black text-xs md:text-xl tracking-tighter whitespace-nowrap">
                     {cadFormatter.format(tire.price)}
                   </td>
-                  <td className="px-10 py-8">
-                    <div className={`px-4 py-2 rounded-full text-xs font-black uppercase ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10' : 'text-white/40 bg-white/5'}`}>{tire.stock} {t.admin.units}</div>
+                  <td className="px-3 md:px-10 py-6 md:py-8">
+                    <div className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-full text-[7px] md:text-xs font-black uppercase whitespace-nowrap ${tire.stock < 10 ? 'text-amber-500 bg-amber-500/10' : 'text-white/40 bg-white/5'}`}>{tire.stock} {t.admin.units}</div>
                   </td>
-                  <td className="px-10 py-8 text-right flex items-center justify-end gap-6">
-                    <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125"><span className="material-symbols-outlined text-2xl">edit</span></button>
-                    <button onClick={() => toggleStatus(tire)} className={`text-[9px] font-black px-4 py-2 rounded-lg border uppercase ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20' : 'text-amber-500 border-amber-500/20'}`}>{tire.status === 'inactive' ? t.admin.show : t.admin.hide}</button>
-                    <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all"><span className="material-symbols-outlined text-2xl">delete</span></button>
+                  <td className="px-4 md:px-10 py-6 md:py-8 text-right flex items-center justify-end gap-3 md:gap-6">
+                    <button onClick={() => openEditModal(tire)} className="text-white/20 hover:text-primary transition-all hover:scale-125" title={t.admin.editTire}><span className="material-symbols-outlined text-lg md:text-2xl">edit</span></button>
+                    <button onClick={() => toggleStatus(tire)} className={`text-[7px] md:text-[9px] font-black px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-lg border uppercase whitespace-nowrap ${tire.status === 'inactive' ? 'text-green-500 border-green-500/20 hover:border-green-500/40' : 'text-amber-500 border-amber-500/20 hover:border-amber-500/40'}`} title={tire.status === 'inactive' ? t.admin.show : t.admin.hide}>{tire.status === 'inactive' ? t.admin.show : t.admin.hide}</button>
+                    <button onClick={() => openDeleteModal(tire)} className="text-white/10 hover:text-red-500 hover:scale-125 transition-all" title={t.admin.deleteProduct}><span className="material-symbols-outlined text-lg md:text-2xl">delete</span></button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
           {tires.length === 0 && (
-            <div className="py-32 text-center space-y-6">
-              <span className="material-symbols-outlined text-7xl text-white/5">inventory_2</span>
-              <p className="text-white/20 text-xl italic font-serif">{t.admin.emptyInventory}</p>
+            <div className="py-20 md:py-32 text-center space-y-4 md:space-y-6 px-4">
+              <span className="material-symbols-outlined text-5xl md:text-7xl text-white/5 block">inventory_2</span>
+              <p className="text-white/20 text-lg md:text-xl italic font-serif">{t.admin.emptyInventory}</p>
             </div>
           )}
         </div>

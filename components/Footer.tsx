@@ -22,12 +22,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
         <div className="max-w-[1440px] mx-auto">
           {/* Bloques Principales */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 lg:gap-16 mb-12 md:mb-16 lg:mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-16 mb-12 md:mb-16 lg:mb-20 text-center md:text-left">
             
             {/* Bloque 1: Marca y Frase */}
-            <div className="lg:col-span-2 space-y-4 md:space-y-6">
+            <div className="lg:col-span-2 space-y-4 md:space-y-6 flex flex-col items-center md:items-start">
               <div 
-                className="flex items-center gap-3 md:gap-4 group cursor-pointer w-fit" 
+                className="flex items-center gap-3 md:gap-4 group cursor-pointer w-fit justify-center md:justify-start" 
                 onClick={() => onNavigate('home')}
               >
                 <div className="size-8 md:size-10 transform group-hover:scale-110 transition-transform flex items-center justify-center mt-1">
@@ -49,8 +49,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
 
             {/* Bloque 2: Documentación y Sistema */}
-            <div className="space-y-6 md:space-y-8">
-              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic border-l-2 border-primary/30 pl-3 md:pl-4">
+            <div className="space-y-6 md:space-y-8 flex flex-col items-center md:items-start">
+              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic md:border-l-2 md:border-primary/30 pl-0 md:pl-4">
                 {t.footer.resourcesTitle}
               </h4>
               <ul className="flex flex-col gap-3 md:gap-4">
@@ -77,8 +77,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
 
             {/* Bloque 3: Acceso Rápido */}
-            <div className="space-y-6 md:space-y-8">
-              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic border-l-2 border-primary/30 pl-3 md:pl-4">
+            <div className="space-y-6 md:space-y-8 flex flex-col items-center md:items-start">
+              <h4 className="text-primary text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] md:tracking-[0.4em] italic md:border-l-2 md:border-primary/30 pl-0 md:pl-4">
                 {t.footer.legalTitle}
               </h4>
               <ul className="flex flex-col gap-3 md:gap-4">
@@ -93,8 +93,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Barra de Copyright y Redes Sociales */}
-          <div className="pt-8 md:pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-            <p className="text-white/20 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] font-outfit text-center md:text-left">
+          <div className="pt-8 md:pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-8">
+            <p className="text-white/20 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] font-outfit text-center">
               {t.footer.rights} <span className="hidden sm:inline">|</span> <span className="block sm:inline italic text-white/10 mt-1 sm:mt-0">{t.footer.excellence}</span>
             </p>
 

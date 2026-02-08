@@ -30,7 +30,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
       onClick={handleCloseRequest}
     >
       <div 
-        className={`bg-background-dark w-full max-w-[1150px] h-auto max-h-[95vh] rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.8)] flex flex-col md:flex-row relative border border-white/10 cursor-default transition-all duration-500 ${
+        className={`bg-background-dark w-full max-w-[1150px] h-auto max-h-[95vh] rounded-2xl md:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.8)] flex flex-col md:flex-row relative border border-white/10 cursor-default transition-all duration-500 ${
           isClosing ? 'scale-95 opacity-0 translate-y-4' : 'scale-100 opacity-100 translate-y-0'
         }`}
         onClick={(e) => e.stopPropagation()}
@@ -43,7 +43,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
         </button>
 
         {/* Left: Gallery */}
-        <div className="w-full md:w-3/5 p-6 sm:p-8 md:p-10 lg:p-12 bg-white flex flex-col items-center justify-center relative group overflow-hidden min-h-[300px] md:min-h-0">
+        <div className="w-full md:w-3/5 p-4 sm:p-6 md:p-10 lg:p-12 bg-white flex flex-col items-center justify-center relative group overflow-hidden min-h-[250px] md:min-h-0">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 pointer-events-none"></div>
           
           {!imageLoaded && (
@@ -53,7 +53,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
           )}
 
           <div 
-            className={`relative aspect-square w-full max-w-[300px] sm:max-w-[400px] md:max-w-[550px] flex items-center justify-center transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)
+            className={`relative aspect-square w-full max-w-[280px] sm:max-w-[350px] md:max-w-[550px] flex items-center justify-center transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)
               ${imageLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'} 
               ${isClosing ? 'scale-[0.85] opacity-0 transition-transform duration-500 ease-in-out' : ''}`}
           >
@@ -71,7 +71,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
         </div>
 
         {/* Right: Details */}
-        <div className="w-full md:w-2/5 p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col bg-surface-dark overflow-y-auto custom-scrollbar">
+        <div className="w-full md:w-2/5 p-4 sm:p-6 md:p-10 lg:p-12 flex flex-col bg-surface-dark overflow-y-auto custom-scrollbar">
           <div className="space-y-6 mb-12">
             <div className="flex flex-wrap gap-3">
               <span className="bg-primary text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/20 italic">{t.productModal.premiumEdition}</span>
@@ -79,11 +79,11 @@ const ProductModal: React.FC<ProductModalProps> = ({ tire, onClose }) => {
                 <span className="material-symbols-outlined text-xs">ac_unit</span> {tire.season}
               </span>
             </div>
-            <h1 className="text-5xl font-black font-serif text-white leading-tight tracking-tight">{tire.brand} <span className="text-primary">{tire.model}</span></h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-serif text-white leading-tight tracking-tight">{tire.brand} <span className="text-primary">{tire.model}</span></h1>
             <p className="text-white/30 text-xs tracking-[0.4em] font-black uppercase">{t.productModal.skuCode}: {tire.brand.substring(0,3).toUpperCase()}-{tire.width}-{tire.diameter}X</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-y-12 gap-x-8 border-y border-white/5 py-12 mb-12">
+            <div className="grid grid-cols-2 gap-y-8 md:gap-y-12 gap-x-4 md:gap-x-8 border-y border-white/5 py-8 md:py-12 mb-8 md:mb-12">
             {[
               { label: t.productModal.bandwidth, value: `${tire.width} mm` },
               { label: t.productModal.profileRatio, value: `${tire.profile} %` },
