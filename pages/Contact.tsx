@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
 
             <div className="flex flex-col gap-4 md:gap-8">
               <h3 className="text-primary text-[9px] md:text-sm uppercase font-black tracking-[0.25em] md:tracking-[0.3em] text-center md:text-left">{t.contact.paymentMethods}</h3>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-4 justify-items-center md:justify-items-start">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-8 justify-items-center">
                 {paymentMethods.map((method, i) => (
                    <div key={i} className="flex flex-col items-center gap-1 md:gap-3 group">
                      <div className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center">
