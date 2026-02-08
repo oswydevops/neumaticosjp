@@ -240,7 +240,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                       </div>
                       <div className="flex justify-between text-xs">
                         <span className="text-white/40">{t.footer.modalDocsVersion}</span>
-                        <span className="text-white">v1.0.0</span>
+                        <span className="text-white">v1.0.0 Beta</span>
                       </div>
                     </div>
                   </section>
