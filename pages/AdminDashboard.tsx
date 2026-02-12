@@ -13,6 +13,27 @@ interface AdminDashboardProps {
 
 const SPEED_RATINGS = ['Q', 'R', 'S', 'T', 'H', 'V', 'W', 'Y', '(Y)'];
 
+// Función para verificar si la sesión ha expirado (24 horas = 86400000 ms)
+const isSessionExpired = (): boolean => {
+  if (typeof window === 'undefined') return true;
+  const loginTime = localStorage.getItem('adminLoginTime');
+  if (!loginTime) return true;
+  const now = Date.now();
+  const expirationTime = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+  return (now - parseInt(loginTime)) > expirationTime;
+};
+
+// Función para obtener tiempo restante en milisegundos
+const getSessionTimeRemaining = (): number => {
+  if (typeof window === 'undefined') return 0;
+  const loginTime = localStorage.getItem('adminLoginTime');
+  if (!loginTime) return 0;
+  const now = Date.now();
+  const expirationTime = 24 * 60 * 60 * 1000;
+  const remaining = expirationTime - (now - parseInt(loginTime));
+  return Math.max(0, remaining);
+};
+
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsAdminLoginView }) => {
   const [adminStep, setAdminStep] = useState<'welcome' | 'login' | 'dashboard'>(() => {
     // Recuperar estado de admin del localStorage si existe y es válido
@@ -20,9 +41,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
       try {
         const savedStep = localStorage.getItem('adminStep');
         // Solo si el estado es 'dashboard' (usuario autenticado), recupera de localStorage
-        // De lo contrario, siempre mostrar 'welcome' en primer acceso
-        if (savedStep === 'dashboard') {
+        // Pero primero verifica que la sesión no haya expirado
+        if (savedStep === 'dashboard' && !isSessionExpired()) {
           return 'dashboard';
+        } else if (savedStep === 'dashboard' && isSessionExpired()) {
+          // Si expiró, limpiar datos de sesión
+          localStorage.removeItem('adminStep');
+          localStorage.removeItem('adminLoginTime');
         }
       } catch (e) {
         console.error('Error reading localStorage:', e);
@@ -41,6 +66,31 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
     }
     return () => setIsAdminLoginView(false);
   }, [adminStep, setIsAdminLoginView]);
+
+  // Efecto para verificar y cerrar sesión automáticamente después de 24 horas
+  useEffect(() => {
+    if (adminStep !== 'dashboard') return;
+
+    // Verificar inmediatamente si la sesión ya expiró
+    if (isSessionExpired()) {
+      setAdminStep('welcome');
+      localStorage.removeItem('adminStep');
+      localStorage.removeItem('adminLoginTime');
+      return;
+    }
+
+    // Configurar intervalo para verificar cada minuto si la sesión expiró
+    const checkInterval = setInterval(() => {
+      if (isSessionExpired()) {
+        setAdminStep('welcome');
+        localStorage.removeItem('adminStep');
+        localStorage.removeItem('adminLoginTime');
+        clearInterval(checkInterval);
+      }
+    }, 60000); // Verifica cada minuto
+
+    return () => clearInterval(checkInterval);
+  }, [adminStep]);
   
   
   // Estados para seguridad
@@ -83,6 +133,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (username === 'admin' && password === 'jp2024') {
+      // Guardar el timestamp del login para la expiración de 24 horas
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('adminLoginTime', Date.now().toString());
+      }
       setAdminStep('dashboard');
       setLoginError(false);
     } else {
@@ -107,6 +161,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ tires, setTires, setIsA
     setAdminStep('welcome');
     setUsername('');
     setPassword('');
+    // Limpiar datos de sesión del localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('adminLoginTime');
+    }
     // El efecto automáticamente guardará 'welcome' en localStorage
   };
 
